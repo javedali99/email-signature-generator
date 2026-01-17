@@ -135,24 +135,6 @@ Or simply drag and drop the `index.html` file into your browser.
 3. Uncheck "Always match my default message font"
 4. Paste your signature
 
-## 📁 Project Structure
-
-```
-email-signature-generator/
-├── index.html          # Main application file (single-page app)
-├── LICENSE             # MIT License
-└── README.md           # Documentation
-```
-
-## 🌐 Browser Compatibility
-
-| Browser | Status |
-|---------|--------|
-| Chrome | ✅ Recommended |
-| Firefox | ✅ Supported |
-| Safari | ✅ Supported |
-| Edge | ✅ Supported |
-| Opera | ✅ Supported |
 
 ## 🤝 Contributing
 
@@ -164,15 +146,7 @@ Contributions are welcome! Here's how you can help:
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-### Ideas for Contributions
 
-- Additional template designs
-- More social media platforms
-- Export to different formats (PNG, PDF)
-- Dark mode support
-- Signature templates library
-- Multi-language support
-- Save/load signature configurations
 
 ## 📄 License
 
