@@ -502,6 +502,73 @@
                                 <i class="fa-solid fa-circle-check"></i>
                             </div>
                         </button>
+
+                        <!-- Top Bar (NEW) -->
+                        <button onclick="setTemplate('topbar')" class="template-btn group relative p-4 border-2 rounded-xl text-left hover:border-blue-500 transition-all bg-white shadow-sm" data-template="topbar">
+                            <div class="w-full h-12 bg-slate-50 rounded mb-3 border border-slate-100 overflow-hidden flex flex-col opacity-60 group-hover:opacity-100 transition-opacity">
+                                <div class="h-4 w-full bg-slate-400"></div>
+                                <div class="flex-1 flex items-center gap-2 p-1">
+                                    <div class="w-4 h-4 rounded-full bg-slate-300"></div>
+                                    <div class="space-y-1 flex-1">
+                                        <div class="h-1 w-2/3 bg-slate-200 rounded"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="block text-sm font-bold text-slate-700 group-hover:text-blue-600">Top Bar</span>
+                            <span class="text-[10px] text-slate-400">Colored header</span>
+                             <div class="absolute top-3 right-3 opacity-0 group-[.active]:opacity-100 text-blue-600">
+                                <i class="fa-solid fa-circle-check"></i>
+                            </div>
+                        </button>
+
+                        <!-- Right (NEW) -->
+                        <button onclick="setTemplate('right')" class="template-btn group relative p-4 border-2 rounded-xl text-left hover:border-blue-500 transition-all bg-white shadow-sm" data-template="right">
+                            <div class="w-full h-12 bg-slate-50 rounded mb-3 border border-slate-100 overflow-hidden flex items-center p-2 gap-2 opacity-60 group-hover:opacity-100 transition-opacity">
+                                <div class="flex-1 space-y-1 text-right">
+                                    <div class="h-1.5 w-12 bg-slate-300 rounded ml-auto"></div>
+                                    <div class="h-1.5 w-8 bg-slate-200 rounded ml-auto"></div>
+                                </div>
+                                <div class="w-8 h-8 rounded-full bg-slate-300"></div>
+                            </div>
+                            <span class="block text-sm font-bold text-slate-700 group-hover:text-blue-600">Right</span>
+                            <span class="text-[10px] text-slate-400">Image on right</span>
+                             <div class="absolute top-3 right-3 opacity-0 group-[.active]:opacity-100 text-blue-600">
+                                <i class="fa-solid fa-circle-check"></i>
+                            </div>
+                        </button>
+
+                        <!-- Strip (NEW) -->
+                        <button onclick="setTemplate('strip')" class="template-btn group relative p-4 border-2 rounded-xl text-left hover:border-blue-500 transition-all bg-white shadow-sm" data-template="strip">
+                            <div class="w-full h-12 bg-slate-50 rounded mb-3 border border-slate-100 overflow-hidden flex items-center p-2 gap-2 opacity-60 group-hover:opacity-100 transition-opacity">
+                                <div class="w-1 h-full bg-slate-400 rounded-full"></div>
+                                <div class="flex-1 space-y-1">
+                                    <div class="h-1.5 w-12 bg-slate-300 rounded"></div>
+                                    <div class="h-1.5 w-full bg-slate-200 rounded"></div>
+                                </div>
+                            </div>
+                            <span class="block text-sm font-bold text-slate-700 group-hover:text-blue-600">Strip</span>
+                            <span class="text-[10px] text-slate-400">Modern accent</span>
+                             <div class="absolute top-3 right-3 opacity-0 group-[.active]:opacity-100 text-blue-600">
+                                <i class="fa-solid fa-circle-check"></i>
+                            </div>
+                        </button>
+
+                        <!-- Underline (Replaces Bordered) -->
+                        <button onclick="setTemplate('underline')" class="template-btn group relative p-4 border-2 rounded-xl text-left hover:border-blue-500 transition-all bg-white shadow-sm" data-template="underline">
+                            <div class="w-full h-12 bg-slate-50 rounded mb-3 border border-slate-100 overflow-hidden flex items-center p-2 gap-2 opacity-60 group-hover:opacity-100 transition-opacity">
+                                <div class="w-6 h-6 rounded bg-slate-300"></div>
+                                <div class="flex-1 space-y-1">
+                                    <div class="h-1.5 w-12 bg-slate-300 rounded"></div>
+                                    <div class="h-0.5 w-full bg-slate-400 mt-1"></div>
+                                    <div class="h-1 w-2/3 bg-slate-200 rounded mt-1"></div>
+                                </div>
+                            </div>
+                            <span class="block text-sm font-bold text-slate-700 group-hover:text-blue-600">Underline</span>
+                            <span class="text-[10px] text-slate-400">Divider style</span>
+                             <div class="absolute top-3 right-3 opacity-0 group-[.active]:opacity-100 text-blue-600">
+                                <i class="fa-solid fa-circle-check"></i>
+                            </div>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -1018,6 +1085,110 @@
                         <td style="vertical-align: top; padding-left: 25px;">
                              <div style="margin-bottom: 15px;">${contactHtml}</div>
                              <div>${socialHtml}</div>
+                        </td>
+                    </tr>
+                </table>
+                `;
+            } else if (state.template === 'topbar') {
+                // TOP BAR (New)
+                html = `
+                <table cellpadding="0" cellspacing="0" border="0" width="100%" style="font-family: ${fontStack}; font-size: 14px; border: 1px solid #e5e7eb; border-radius: 6px; overflow: hidden; border-spacing: 0;">
+                    <tr>
+                        <td colspan="2" style="background-color: ${color}; padding: 15px 20px;">
+                            <span style="color: #ffffff; font-weight: bold; font-size: 18px;">${d.firstName} ${d.lastName}</span>
+                            <span style="color: rgba(255,255,255,0.8); font-size: 14px; margin-left: 10px;">${d.jobTitle}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top; padding: 20px; width: 1px; background-color: #ffffff;">
+                             ${deg.photoUrl ? `<img src="${deg.photoUrl}" style="width: ${imgSize}; height: ${imgSize}; border-radius: ${imgRadius}; object-fit: cover;">` : ''}
+                        </td>
+                        <td style="vertical-align: top; padding: 20px; background-color: #ffffff;">
+                             ${d.department ? `<div style="color: #6b7280; font-size: 13px; margin-bottom: 4px;">${d.department}</div>` : ''}
+                             <div style="color: #374151; font-weight: bold; font-size: 14px; margin-bottom: 12px;">${d.companyName}</div>
+                             <div style="margin-bottom: 15px;">${contactHtml}</div>
+                             <div>${socialHtml}</div>
+                        </td>
+                    </tr>
+                </table>
+                `;
+            } else if (state.template === 'right') {
+                // RIGHT (New - Mirror of Classic)
+                html = `
+                <table cellpadding="0" cellspacing="0" border="0" style="font-family: ${fontStack}; font-size: 14px; line-height: 1.4;">
+                    <tr>
+                        <td style="vertical-align: top; border-right: 2px solid ${color}; padding-right: 24px; text-align: right;">
+                            <div style="font-weight: bold; color: #111827; font-size: 18px; margin-bottom: 2px;">${d.firstName} ${d.lastName}</div>
+                            <div style="color: #4b5563; font-size: 14px; margin-bottom: 2px;">${d.jobTitle}</div>
+                            ${d.department ? `<div style="color: #4b5563; font-size: 14px; margin-bottom: 4px;">${d.department}</div>` : ''}
+                            <div style="color: #6b7280; font-size: 13px; font-weight: bold; margin-bottom: 16px;">${d.companyName}</div>
+                            
+                            <div style="margin-bottom: 16px; display: inline-block; text-align: right;">
+                                <!-- Align icons to right manually for this template -->
+                                ${d.mobilePhone ? `<div style="margin-bottom: 3px;"><a href="tel:${d.mobilePhone}" style="color: #4b5563; text-decoration: none;">${d.mobilePhone}</a> <span style="display:inline-block; margin-left: 5px;"><img src="${icons.phone}" width="12" style="vertical-align:-2px"></span></div>` : ''}
+                                ${d.officePhone ? `<div style="margin-bottom: 3px;"><a href="tel:${d.officePhone}" style="color: #4b5563; text-decoration: none;">${d.officePhone}</a> <span style="display:inline-block; margin-left: 5px;"><img src="${icons.phone}" width="12" style="vertical-align:-2px"></span></div>` : ''}
+                                ${d.email ? `<div style="margin-bottom: 3px;"><a href="mailto:${d.email}" style="color: #4b5563; text-decoration: none;">${d.email}</a> <span style="display:inline-block; margin-left: 5px;"><img src="${icons.email}" width="12" style="vertical-align:-2px"></span></div>` : ''}
+                                ${d.website ? `<div style="margin-bottom: 3px;"><a href="${ensureHttp(d.website)}" style="color: #4b5563; text-decoration: none;">${d.website}</a> <span style="display:inline-block; margin-left: 5px;"><img src="${icons.web}" width="12" style="vertical-align:-2px"></span></div>` : ''}
+                                ${d.address ? `<div style="margin-top: 6px;"><span style="color: #4b5563;">${d.address}</span> <span style="display:inline-block; margin-left: 5px;"><img src="${icons.location}" width="12" style="vertical-align:-2px"></span></div>` : ''}
+                            </div>
+                            
+                            <div>
+                                ${socialHtml}
+                            </div>
+                        </td>
+                        <td style="vertical-align: top; padding-left: 24px;">
+                            ${deg.photoUrl ? `<img src="${deg.photoUrl}" alt="${d.firstName}" style="width: ${imgSize}; height: ${imgSize}; object-fit: cover; border-radius: ${imgRadius}; display: block;">` : ''}
+                            ${deg.logoUrl ? `<div style="margin-top: 15px;"><img src="${deg.logoUrl}" style="height: 30px; display: block;" alt="Logo" /></div>` : ''}
+                        </td>
+                    </tr>
+                </table>
+                `;
+            } else if (state.template === 'strip') {
+                // STRIP (New - Bold Left Bar)
+                html = `
+                <table cellpadding="0" cellspacing="0" border="0" style="font-family: ${fontStack}; font-size: 14px; line-height: 1.4;">
+                    <tr>
+                        <td style="vertical-align: top; border-left: 6px solid ${color}; padding-left: 20px;">
+                            <table cellpadding="0" cellspacing="0" border="0">
+                                <tr>
+                                    ${deg.photoUrl ? `<td style="padding-right: 20px; vertical-align: top;"><img src="${deg.photoUrl}" alt="${d.firstName}" style="width: ${parseInt(deg.imageSize) * 0.8}px; height: ${parseInt(deg.imageSize) * 0.8}px; object-fit: cover; border-radius: ${imgRadius}; display: block;"></td>` : ''}
+                                    <td style="vertical-align: top;">
+                                        <div style="font-weight: 800; color: #111827; font-size: 20px; text-transform: uppercase; letter-spacing: 0.5px;">${d.firstName} ${d.lastName}</div>
+                                        <div style="color: ${color}; font-size: 14px; font-weight: bold; margin-bottom: 2px;">${d.jobTitle}</div>
+                                        <div style="color: #6b7280; font-size: 13px; margin-bottom: 12px;">${d.companyName}</div>
+                                        ${contactHtml}
+                                        <div style="margin-top: 12px;">${socialHtml}</div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                `;
+            } else if (state.template === 'underline') {
+                // UNDERLINE (Replaces Bordered - Clean Divider)
+                html = `
+                <table cellpadding="0" cellspacing="0" border="0" style="font-family: ${fontStack}; font-size: 14px; line-height: 1.4;">
+                    <tr>
+                        <td style="vertical-align: top; padding-right: 25px;">
+                            ${deg.photoUrl ? `<img src="${deg.photoUrl}" alt="${d.firstName}" style="width: ${imgSize}; height: ${imgSize}; object-fit: cover; border-radius: ${imgRadius}; display: block;">` : ''}
+                        </td>
+                        <td style="vertical-align: top;">
+                            <div style="font-weight: 800; color: #111827; font-size: 20px; line-height: 1.2;">${d.firstName} ${d.lastName}</div>
+                            <div style="color: #4b5563; font-size: 14px; margin-bottom: 4px;">${d.jobTitle}</div>
+                            
+                            <div style="border-bottom: 3px solid ${color}; width: 60px; margin: 12px 0;"></div>
+                            
+                            <div style="margin-bottom: 4px; font-weight: bold; color: #111827; font-size: 14px;">${d.companyName}</div>
+                            ${d.department ? `<div style="color: #6b7280; font-size: 13px; margin-bottom: 10px;">${d.department}</div>` : ''}
+                            
+                            <div style="margin-bottom: 15px;">
+                                ${contactHtml}
+                            </div>
+                            
+                            <div>
+                                ${socialHtml}
+                            </div>
                         </td>
                     </tr>
                 </table>
