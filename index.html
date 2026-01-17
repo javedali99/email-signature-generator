@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Email Signature Generator</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+        
+        /* Custom Scrollbar for the sidebar */
+        .custom-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 4px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af;
+        }
+
+        /* Tabs Animation */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Color Input Reset */
+        input[type="color"] {
+            -webkit-appearance: none;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            padding: 0;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        input[type="color"]::-webkit-color-swatch-wrapper {
+            padding: 0;
+        }
+        input[type="color"]::-webkit-color-swatch {
+            border: none;
+            border-radius: 50%;
+            border: 2px solid #e5e7eb;
+        }
+
+        /* Preview Area Pattern */
+        .preview-bg {
+            background-color: #ffffff;
+            background-image: radial-gradient(#e5e7eb 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+    </style>
+</head>
+<body class="h-screen flex flex-col md:flex-row overflow-hidden text-gray-800">
+
+    <!-- LEFT SIDEBAR: Controls -->
+    <div class="w-full md:w-[450px] bg-white flex flex-col shadow-xl z-10 border-r border-gray-200 h-full">
+        
+        <!-- Header -->
+        <div class="p-5 border-b border-gray-100 flex items-center justify-between bg-white">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white">
+                    <i class="fa-solid fa-pen-nib"></i>
+                </div>
+                <h1 class="text-xl font-bold tracking-tight text-gray-900">SigGen</h1>
+            </div>
+            <span class="text-xs font-medium px-2 py-1 bg-blue-50 text-blue-600 rounded-full">v1.3</span>
+        </div>
+
+        <!-- Tabs Navigation -->
+        <div class="flex border-b border-gray-200 text-sm font-medium">
+            <button onclick="switchTab('details')" id="tab-btn-details" class="flex-1 py-4 text-blue-600 border-b-2 border-blue-600 hover:bg-gray-50 transition-colors">
+                <i class="fa-regular fa-user mr-2"></i>Details
+            </button>
+            <button onclick="switchTab('social')" id="tab-btn-social" class="flex-1 py-4 text-gray-500 hover:text-gray-700 hover:bg-gray-50 transition-colors border-b-2 border-transparent">
+                <i class="fa-solid fa-share-nodes mr-2"></i>Social
+            </button>
+            <button onclick="switchTab('design')" id="tab-btn-design" class="flex-1 py-4 text-gray-500 hover:text-gray-700 hover:bg-gray-50 transition-colors border-b-2 border-transparent">
+                <i class="fa-solid fa-palette mr-2"></i>Design
+            </button>
+        </div>
+
+        <!-- Scrollable Content Area -->
+        <div class="flex-1 overflow-y-auto custom-scroll p-6 bg-gray-50/50">
+            
+            <!-- DETAILS TAB -->
+            <div id="tab-details" class="tab-content active space-y-6">
+                <!-- Personal Info Group -->
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+                    <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">Personal Info</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="col-span-1">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+                            <input type="text" id="firstName" value="Sarah" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-sm" placeholder="e.g. Jane">
+                        </div>
+                        <div class="col-span-1">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+                            <input type="text" id="lastName" value="Connor" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-sm" placeholder="e.g. Doe">
+                        </div>
+                        <div class="col-span-2">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Job Title</label>
+                            <input type="text" id="jobTitle" value="Product Design Lead" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-sm" placeholder="e.g. CEO">
+                        </div>
+                        <div class="col-span-2">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Department</label>
+                            <input type="text" id="department" value="Creative & Marketing" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-sm" placeholder="e.g. Marketing">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Company Info Group -->
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+                    <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">Company Info</h3>
+                    <div class="space-y-3">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Company Name</label>
+                            <input type="text" id="companyName" value="Acme Studio Inc." class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Website</label>
+                            <input type="text" id="website" value="www.acmestudio.com" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-sm">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Info Group -->
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+                    <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">Contact Details</h3>
+                    <div class="space-y-3">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Mobile</label>
+                                <input type="text" id="mobilePhone" value="+1 (555) 123-4567" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Office</label>
+                                <input type="text" id="officePhone" value="+1 (555) 987-6543" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-sm">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                            <input type="email" id="email" value="sarah.c@acmestudio.com" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Address</label>
+                            <input type="text" id="address" value="123 Design Avenue, San Francisco, CA" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-sm">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SOCIAL TAB -->
+            <div id="tab-social" class="tab-content space-y-6">
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+                    <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">Social Profiles</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded bg-blue-700 flex items-center justify-center text-white shrink-0"><i class="fab fa-linkedin-in text-sm"></i></div>
+                            <input type="text" id="linkedin" value="linkedin.com/in/username" placeholder="LinkedIn URL" class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-sm">
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded bg-black flex items-center justify-center text-white shrink-0"><i class="fab fa-x-twitter text-sm"></i></div>
+                            <input type="text" id="twitter" value="x.com/username" placeholder="X (Twitter) URL" class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-sm">
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded bg-sky-500 flex items-center justify-center text-white shrink-0"><i class="fa-solid fa-cloud text-xs"></i></div>
+                            <input type="text" id="bluesky" placeholder="BlueSky URL" class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-sm">
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded bg-gray-800 flex items-center justify-center text-white shrink-0"><i class="fab fa-github text-sm"></i></div>
+                            <input type="text" id="github" placeholder="GitHub URL" class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-sm">
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded bg-blue-500 flex items-center justify-center text-white shrink-0"><i class="fa-solid fa-graduation-cap text-xs"></i></div>
+                            <input type="text" id="scholar" placeholder="Google Scholar URL" class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-sm">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DESIGN TAB -->
+            <div id="tab-design" class="tab-content space-y-6">
+                
+                <!-- Images -->
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+                    <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">Images</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Profile Picture</label>
+                            
+                            <!-- File Upload -->
+                            <div class="flex items-center gap-3 mb-2">
+                                <label class="cursor-pointer bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-bold py-2 px-4 rounded inline-flex items-center transition-colors">
+                                    <i class="fa-solid fa-upload mr-2"></i>
+                                    <span>Upload Photo</span>
+                                    <input type="file" id="photoUpload" class="hidden" accept="image/*" onchange="handleImageUpload(this)">
+                                </label>
+                                <span class="text-xs text-gray-400 italic">or use URL below</span>
+                            </div>
+
+                            <input type="text" id="photoUrl" value="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&w=256&q=80" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-sm" placeholder="https://...">
+                        </div>
+                         <!-- Logo URL (Optional) -->
+                         <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Company Logo URL (Optional)</label>
+                            <input type="text" id="logoUrl" placeholder="https://..." class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-sm">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Theme Color -->
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+                    <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">Theme Color</h3>
+                    <div class="flex items-center gap-4">
+                        <input type="color" id="themeColor" value="#2563EB">
+                        <span id="colorValue" class="text-sm font-mono text-gray-500">#2563EB</span>
+                    </div>
+                    <div class="flex gap-2 mt-3">
+                        <button class="w-6 h-6 rounded-full bg-blue-600 ring-2 ring-offset-2 ring-transparent hover:ring-blue-600 transition-all" onclick="setThemeColor('#2563EB')"></button>
+                        <button class="w-6 h-6 rounded-full bg-red-600 ring-2 ring-offset-2 ring-transparent hover:ring-red-600 transition-all" onclick="setThemeColor('#DC2626')"></button>
+                        <button class="w-6 h-6 rounded-full bg-green-600 ring-2 ring-offset-2 ring-transparent hover:ring-green-600 transition-all" onclick="setThemeColor('#16A34A')"></button>
+                        <button class="w-6 h-6 rounded-full bg-purple-600 ring-2 ring-offset-2 ring-transparent hover:ring-purple-600 transition-all" onclick="setThemeColor('#9333EA')"></button>
+                        <button class="w-6 h-6 rounded-full bg-gray-900 ring-2 ring-offset-2 ring-transparent hover:ring-gray-900 transition-all" onclick="setThemeColor('#111827')"></button>
+                    </div>
+                </div>
+
+                <!-- Templates Selection -->
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+                    <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">Layout Template</h3>
+                    <div class="grid grid-cols-2 gap-3">
+                        <button onclick="setTemplate('classic')" class="p-3 border-2 border-blue-500 rounded-lg bg-blue-50 hover:bg-blue-100 transition-all text-center">
+                            <span class="block text-sm font-bold text-blue-900">Classic</span>
+                            <span class="text-xs text-blue-600">Horizontal</span>
+                        </button>
+                        <button onclick="setTemplate('compact')" class="p-3 border-2 border-gray-200 rounded-lg hover:border-blue-300 hover:bg-gray-50 transition-all text-center">
+                            <span class="block text-sm font-bold text-gray-700">Compact</span>
+                            <span class="text-xs text-gray-500">Minimalist</span>
+                        </button>
+                        <button onclick="setTemplate('stacked')" class="p-3 border-2 border-gray-200 rounded-lg hover:border-blue-300 hover:bg-gray-50 transition-all text-center">
+                            <span class="block text-sm font-bold text-gray-700">Stacked</span>
+                            <span class="text-xs text-gray-500">Centered</span>
+                        </button>
+                         <button onclick="setTemplate('banner')" class="p-3 border-2 border-gray-200 rounded-lg hover:border-blue-300 hover:bg-gray-50 transition-all text-center">
+                            <span class="block text-sm font-bold text-gray-700">Banner</span>
+                            <span class="text-xs text-gray-500">Bottom Bar</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="h-10"></div> <!-- Spacer -->
+        </div>
+    </div>
+
+    <!-- RIGHT SIDE: Preview Area -->
+    <div class="flex-1 flex flex-col h-full bg-gray-100 preview-bg relative overflow-hidden">
+        
+        <!-- Header -->
+        <div class="h-16 border-b border-gray-200 bg-white/80 backdrop-blur-sm flex items-center justify-between px-8">
+            <h2 class="font-semibold text-gray-700">Live Preview</h2>
+            <div class="flex gap-3">
+                 <!-- Copy Logic -->
+                <button onclick="copyToClipboard()" id="copyBtn" class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-medium shadow-lg shadow-blue-500/20 transition-all transform active:scale-95">
+                    <i class="fa-regular fa-copy"></i>
+                    <span>Copy Signature</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Preview Canvas -->
+        <div class="flex-1 flex items-center justify-center p-8 overflow-auto">
+            
+            <!-- Email Container Look -->
+            <div class="w-full max-w-3xl bg-white rounded-xl shadow-2xl overflow-hidden border border-gray-200">
+                <!-- Fake Email Header -->
+                <div class="bg-gray-50 border-b border-gray-100 p-4 flex flex-col gap-2">
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs font-semibold text-gray-500 w-12 text-right">To:</span>
+                        <div class="h-6 bg-gray-200 rounded w-48 animate-pulse"></div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs font-semibold text-gray-500 w-12 text-right">Subject:</span>
+                        <span class="text-sm font-medium text-gray-800">Project Update: Q3 Design Review</span>
+                    </div>
+                </div>
+                
+                <!-- Email Body & Signature -->
+                <div class="p-8 min-h-[300px] flex flex-col">
+                    <div class="space-y-3 mb-10 text-gray-600 font-light text-sm">
+                        <p>Hi Team,</p>
+                        <p>Here are the updated designs we discussed in yesterday's meeting. Please review and let me know your thoughts by Friday.</p>
+                        <p>Best regards,</p>
+                    </div>
+
+                    <!-- THE SIGNATURE RENDER TARGET -->
+                    <div id="signature-preview-container" class="mt-auto border-t border-transparent hover:border-gray-100 transition-colors p-2 -ml-2 rounded-lg select-text cursor-text">
+                        <!-- Signature injected here via JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notification Toast -->
+        <div id="toast" class="absolute bottom-8 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white px-6 py-3 rounded-full shadow-2xl flex items-center gap-3 transition-all duration-300 opacity-0 translate-y-10 pointer-events-none">
+            <i class="fa-solid fa-check-circle text-green-400"></i>
+            <span id="toast-message">Copied to clipboard!</span>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // --- STATE MANAGEMENT ---
+        const state = {
+            template: 'classic',
+            details: {
+                firstName: '', lastName: '', jobTitle: '', department: '',
+                companyName: '', website: '',
+                mobilePhone: '', officePhone: '', email: '', address: ''
+            },
+            social: {
+                linkedin: '', twitter: '', bluesky: '', github: '', scholar: ''
+            },
+            design: {
+                photoUrl: '', logoUrl: '', themeColor: '#2563EB'
+            }
+        };
+
+        // --- DOM ELEMENTS ---
+        const inputs = document.querySelectorAll('input:not([type="file"])');
+        const previewContainer = document.getElementById('signature-preview-container');
+        const themeColorInput = document.getElementById('themeColor');
+        const colorValueLabel = document.getElementById('colorValue');
+
+        // --- INITIALIZATION ---
+        function init() {
+            // Attach listeners to all text/color inputs
+            inputs.forEach(input => {
+                input.addEventListener('input', handleInput);
+            });
+
+            // Initial render
+            updateStateFromDOM();
+            renderSignature();
+        }
+
+        function handleInput(e) {
+            updateStateFromDOM();
+            if (e.target.id === 'themeColor') {
+                colorValueLabel.textContent = e.target.value.toUpperCase();
+                state.design.themeColor = e.target.value;
+            }
+            renderSignature();
+        }
+        
+        // Handle File Upload for Profile Photo
+        function handleImageUpload(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    // Update the text input with the base64 data (for visual consistency)
+                    // and update state
+                    const base64 = e.target.result;
+                    document.getElementById('photoUrl').value = base64;
+                    state.design.photoUrl = base64;
+                    renderSignature();
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function updateStateFromDOM() {
+            // Helper to get value
+            const getVal = (id) => document.getElementById(id)?.value || '';
+
+            state.details.firstName = getVal('firstName');
+            state.details.lastName = getVal('lastName');
+            state.details.jobTitle = getVal('jobTitle');
+            state.details.department = getVal('department');
+            state.details.companyName = getVal('companyName');
+            state.details.website = getVal('website');
+            state.details.mobilePhone = getVal('mobilePhone');
+            state.details.officePhone = getVal('officePhone');
+            state.details.email = getVal('email');
+            state.details.address = getVal('address');
+
+            state.social.linkedin = getVal('linkedin');
+            state.social.twitter = getVal('twitter');
+            state.social.bluesky = getVal('bluesky');
+            state.social.github = getVal('github');
+            state.social.scholar = getVal('scholar');
+
+            state.design.photoUrl = getVal('photoUrl');
+            state.design.logoUrl = getVal('logoUrl');
+            state.design.themeColor = document.getElementById('themeColor').value;
+        }
+
+        function switchTab(tabName) {
+            // Update Tab Buttons
+            document.querySelectorAll('button[id^="tab-btn-"]').forEach(btn => {
+                if(btn.id === `tab-btn-${tabName}`) {
+                    btn.classList.remove('text-gray-500', 'border-transparent');
+                    btn.classList.add('text-blue-600', 'border-blue-600');
+                } else {
+                    btn.classList.add('text-gray-500', 'border-transparent');
+                    btn.classList.remove('text-blue-600', 'border-blue-600');
+                }
+            });
+
+            // Update Tab Content
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(`tab-${tabName}`).classList.add('active');
+        }
+
+        function setThemeColor(color) {
+            themeColorInput.value = color;
+            colorValueLabel.textContent = color;
+            // Trigger input event manually to update state
+            themeColorInput.dispatchEvent(new Event('input'));
+        }
+
+        function setTemplate(templateName) {
+            state.template = templateName;
+            
+            // Visual feedback on buttons
+            document.querySelectorAll('#tab-design button').forEach(btn => {
+                const btnLabel = btn.querySelector('span.block')?.innerHTML.toLowerCase() || '';
+                if(btnLabel.includes(templateName)) {
+                   btn.classList.add('border-blue-500', 'bg-blue-50');
+                   btn.classList.remove('border-gray-200');
+                } else {
+                   btn.classList.remove('border-blue-500', 'bg-blue-50');
+                   btn.classList.add('border-gray-200');
+                }
+            });
+
+            renderSignature();
+        }
+
+        // --- RENDER LOGIC ---
+        function renderSignature() {
+            const d = state.details;
+            const s = state.social;
+            const deg = state.design;
+            const color = deg.themeColor;
+
+            // --- ICONS CONFIGURATION (PNGs for Email Compatibility) ---
+            const icons = {
+                phone: 'https://cdn-icons-png.flaticon.com/512/159/159832.png',
+                email: 'https://cdn-icons-png.flaticon.com/512/542/542638.png',
+                web: 'https://cdn-icons-png.flaticon.com/512/1006/1006771.png',
+                location: 'https://cdn-icons-png.flaticon.com/512/535/535239.png',
+                
+                linkedin: 'https://cdn-icons-png.flaticon.com/512/174/174857.png',
+                // Updated X icon to a square, filled version
+                twitter: 'https://cdn-icons-png.flaticon.com/512/12107/12107562.png', 
+                bluesky: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Bluesky_Logo.svg/100px-Bluesky_Logo.svg.png',
+                github: 'https://cdn-icons-png.flaticon.com/512/25/25231.png',
+                scholar: 'https://cdn-icons-png.flaticon.com/512/2991/2991148.png'
+            };
+
+            // Generate Social Icons HTML (NO BACKGROUND BOXES, Just Icons)
+            let socialHtml = '';
+            // Style: Icon only, some spacing
+            const socialStyle = `text-decoration: none; display: inline-block; width: 20px; height: 20px; margin-right: 8px; vertical-align: middle;`;
+            
+            if (s.linkedin) socialHtml += `<a href="${ensureHttp(s.linkedin)}" style="${socialStyle}"><img src="${icons.linkedin}" width="20" height="20" style="display:block;" alt="LI"/></a>`;
+            if (s.twitter) socialHtml += `<a href="${ensureHttp(s.twitter)}" style="${socialStyle}"><img src="${icons.twitter}" width="20" height="20" style="display:block;" alt="X"/></a>`;
+            if (s.bluesky) socialHtml += `<a href="${ensureHttp(s.bluesky)}" style="${socialStyle}"><img src="${icons.bluesky}" width="20" height="20" style="display:block;" alt="BS"/></a>`;
+            if (s.github) socialHtml += `<a href="${ensureHttp(s.github)}" style="${socialStyle}"><img src="${icons.github}" width="20" height="20" style="display:block;" alt="GH"/></a>`;
+            if (s.scholar) socialHtml += `<a href="${ensureHttp(s.scholar)}" style="${socialStyle}"><img src="${icons.scholar}" width="20" height="20" style="display:block;" alt="GS"/></a>`;
+
+            // Contact Lines (With Icons)
+            const contactStyle = `font-family: Arial, sans-serif; font-size: 13px; color: #4b5563; line-height: 1.6; text-decoration: none; display: inline-block; vertical-align: middle;`;
+            const iconWrapStyle = `display: inline-block; width: 14px; margin-right: 6px; vertical-align: -2px;`;
+            
+            let contactHtml = '';
+            
+            if (d.mobilePhone) contactHtml += `<div style="margin-bottom: 2px;"><span style="${iconWrapStyle}"><img src="${icons.phone}" width="12" style="display:block" alt="M"></span> <a href="tel:${d.mobilePhone}" style="${contactStyle}">${d.mobilePhone}</a></div>`;
+            if (d.officePhone) contactHtml += `<div style="margin-bottom: 2px;"><span style="${iconWrapStyle}"><img src="${icons.phone}" width="12" style="display:block" alt="O"></span> <a href="tel:${d.officePhone}" style="${contactStyle}">${d.officePhone}</a></div>`;
+            if (d.email) contactHtml += `<div style="margin-bottom: 2px;"><span style="${iconWrapStyle}"><img src="${icons.email}" width="12" style="display:block" alt="E"></span> <a href="mailto:${d.email}" style="${contactStyle}">${d.email}</a></div>`;
+            if (d.website) contactHtml += `<div style="margin-bottom: 2px;"><span style="${iconWrapStyle}"><img src="${icons.web}" width="12" style="display:block" alt="W"></span> <a href="${ensureHttp(d.website)}" style="${contactStyle}">${d.website}</a></div>`;
+            if (d.address) contactHtml += `<div style="margin-top: 4px;"><span style="${iconWrapStyle}"><img src="${icons.location}" width="12" style="display:block" alt="L"></span> <span style="${contactStyle}">${d.address}</span></div>`;
+
+
+            // --- TEMPLATES ---
+            let html = '';
+
+            if (state.template === 'classic') {
+                // CLASSIC
+                html = `
+                <table cellpadding="0" cellspacing="0" border="0" style="font-family: Arial, sans-serif; font-size: 14px; line-height: 1.4;">
+                    <tr>
+                        <td style="vertical-align: top; padding-right: 20px;">
+                            ${deg.photoUrl ? `<img src="${deg.photoUrl}" alt="${d.firstName}" style="width: 100px; height: 100px; object-fit: cover; border-radius: 50%; display: block;">` : ''}
+                        </td>
+                        <td style="vertical-align: top; border-left: 2px solid ${color}; padding-left: 20px;">
+                            <div style="font-weight: bold; color: #111827; font-size: 16px;">${d.firstName} ${d.lastName}</div>
+                            <div style="color: #4b5563; font-size: 14px; margin-bottom: 2px;">${d.jobTitle}</div>
+                            ${d.department ? `<div style="color: #4b5563; font-size: 14px; margin-bottom: 4px;">${d.department}</div>` : ''}
+                            <div style="color: #6b7280; font-size: 13px; font-weight: bold; margin-bottom: 12px;">${d.companyName}</div>
+                            
+                            ${contactHtml}
+                            
+                            <div style="margin-top: 15px;">
+                                ${socialHtml}
+                            </div>
+                        </td>
+                    </tr>
+                    ${deg.logoUrl ? `<tr><td colspan="2" style="padding-top: 15px;"><img src="${deg.logoUrl}" style="height: 30px; display: block;" alt="Logo" /></td></tr>` : ''}
+                </table>
+                `;
+            } else if (state.template === 'compact') {
+                // COMPACT
+                html = `
+                <table cellpadding="0" cellspacing="0" border="0" style="font-family: Helvetica, Arial, sans-serif; font-size: 13px;">
+                    <tr>
+                        <td style="vertical-align: middle; padding-right: 15px;">
+                             ${deg.photoUrl ? `<img src="${deg.photoUrl}" alt="${d.firstName}" style="width: 64px; height: 64px; object-fit: cover; border-radius: 12px; display: block;">` : ''}
+                        </td>
+                        <td>
+                            <div style="font-weight: 800; color: #000; font-size: 15px;">${d.firstName} ${d.lastName}</div>
+                            <div style="color: #555; font-size: 13px; margin-bottom: 5px;">${d.jobTitle} at <span style="font-weight: bold; color:${color}">${d.companyName}</span></div>
+                            <div style="font-size: 12px; color: #777;">
+                                <a href="mailto:${d.email}" style="color: #777; text-decoration: none;">${d.email}</a> • 
+                                <a href="${ensureHttp(d.website)}" style="color: #777; text-decoration: none;">${d.website}</a>
+                            </div>
+                            <div style="margin-top: 8px;">
+                                ${socialHtml}
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                `;
+            } else if (state.template === 'stacked') {
+                // STACKED
+                html = `
+                <table cellpadding="0" cellspacing="0" border="0" width="100%" style="font-family: 'Verdana', sans-serif; font-size: 14px; text-align: center; max-width: 400px;">
+                    <tr>
+                        <td align="center" style="padding-bottom: 15px;">
+                             ${deg.photoUrl ? `<img src="${deg.photoUrl}" alt="${d.firstName}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 50%; border: 3px solid ${color};">` : ''}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" style="font-weight: bold; font-size: 18px; color: #333;">${d.firstName} ${d.lastName}</td>
+                    </tr>
+                    <tr>
+                        <td align="center" style="color: #555; font-size: 14px; padding-bottom: 10px; text-transform: uppercase; letter-spacing: 1px;">${d.jobTitle}</td>
+                    </tr>
+                    <tr>
+                         <td align="center" style="border-top: 1px solid #ddd; padding-top: 10px; font-size: 12px; color: #555; line-height: 1.6;">
+                            <img src="${icons.email}" width="10" /> ${d.email} <br>
+                            <img src="${icons.phone}" width="10" /> ${d.mobilePhone} | <img src="${icons.web}" width="10" /> ${d.website}
+                         </td>
+                    </tr>
+                    <tr>
+                        <td align="center" style="padding-top: 15px;">
+                            ${socialHtml}
+                        </td>
+                    </tr>
+                </table>
+                `;
+            } else if (state.template === 'banner') {
+                 // BANNER
+                html = `
+                <table cellpadding="0" cellspacing="0" border="0" style="font-family: Arial, sans-serif; font-size: 14px; min-width: 350px;">
+                    <tr>
+                        <td style="padding-bottom: 8px;">
+                            <span style="font-weight: bold; font-size: 16px; color: #000;">${d.firstName} ${d.lastName}</span>
+                            <span style="color: #888; padding: 0 5px;">/</span>
+                            <span style="color: #555;">${d.jobTitle}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                         <td style="padding-bottom: 12px; font-size: 13px; color: #555;">
+                             ${d.companyName}
+                         </td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: ${color}; padding: 10px 15px; border-radius: 4px; color: #ffffff;">
+                             <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                <tr>
+                                    <td style="color: #ffffff; font-size: 12px;">
+                                        <img src="${icons.email}" width="10" style="filter: brightness(0) invert(1);" /> <a href="mailto:${d.email}" style="color: #ffffff; text-decoration: none; font-weight: bold; margin-right: 15px;">Email Me</a>
+                                        <img src="${icons.web}" width="10" style="filter: brightness(0) invert(1);" /> <a href="${ensureHttp(d.website)}" style="color: #ffffff; text-decoration: none; font-weight: bold;">Visit Website</a>
+                                    </td>
+                                    <td align="right">
+                                         ${s.linkedin ? `<a href="${ensureHttp(s.linkedin)}" style="text-decoration:none; margin-left:5px;"><img src="${icons.linkedin}" width="14" style="filter: brightness(0) invert(1);"/></a>` : ''}
+                                         ${s.twitter ? `<a href="${ensureHttp(s.twitter)}" style="text-decoration:none; margin-left:5px;"><img src="${icons.twitter}" width="14" style="filter: brightness(0) invert(1);"/></a>` : ''}
+                                    </td>
+                                </tr>
+                             </table>
+                        </td>
+                    </tr>
+                </table>
+                `;
+            }
+
+            previewContainer.innerHTML = html;
+        }
+
+        // --- UTILS ---
+        function ensureHttp(url) {
+            if (!url) return '';
+            if (!/^https?:\/\//i.test(url)) {
+                return 'https://' + url;
+            }
+            return url;
+        }
+
+        async function copyToClipboard() {
+            const range = document.createRange();
+            range.selectNode(previewContainer);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+            
+            try {
+                // Modern way
+                document.execCommand('copy');
+                showToast('Signature copied! Paste it into your email settings.');
+            } catch (err) {
+                showToast('Failed to copy. Please manually select and copy.');
+            }
+            
+            window.getSelection().removeAllRanges();
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            const msgSpan = document.getElementById('toast-message');
+            msgSpan.innerText = msg;
+            
+            toast.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
+            
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none');
+            }, 3000);
+        }
+
+        // Start
+        init();
+
+    </script>
+</body>
+</html>
