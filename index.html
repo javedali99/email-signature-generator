@@ -356,6 +356,17 @@
                             <label class="text-xs font-semibold text-slate-600 block mb-2">Company Logo (Optional)</label>
                             <input type="text" id="logoUrl" class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-sm outline-none focus:border-blue-500 transition-all" placeholder="https://...">
                         </div>
+
+                        <div class="h-px bg-slate-100"></div>
+
+                        <!-- Image Size Slider -->
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <label class="text-xs font-semibold text-slate-600">Image Size</label>
+                                <span id="imageSizeLabel" class="text-[10px] font-mono text-slate-400">100px</span>
+                            </div>
+                            <input type="range" id="imageSize" min="50" max="200" value="100" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600">
+                        </div>
                     </div>
                 </div>
 
@@ -589,7 +600,7 @@
                 linkedin: '', twitter: '', instagram: '', facebook: '', whatsapp: '', youtube: '', tiktok: '', bluesky: '', github: '', scholar: ''
             },
             design: {
-                photoUrl: '', logoUrl: '', themeColor: '#2563EB', font: 'jakarta', imageShape: 'circle'
+                photoUrl: '', logoUrl: '', themeColor: '#2563EB', font: 'jakarta', imageShape: 'circle', imageSize: 100
             }
         };
 
@@ -598,6 +609,7 @@
         const previewContainer = document.getElementById('signature-preview-container');
         const themeColorInput = document.getElementById('themeColor');
         const colorValueLabel = document.getElementById('colorValue');
+        const imageSizeLabel = document.getElementById('imageSizeLabel');
 
         // --- FONT OPTIONS CONFIGURATION ---
         const fontOptions = {
@@ -669,6 +681,9 @@
                 colorValueLabel.textContent = e.target.value.toUpperCase();
                 state.design.themeColor = e.target.value;
             }
+            if (e.target.id === 'imageSize') {
+                imageSizeLabel.textContent = e.target.value + 'px';
+            }
             renderSignature();
         }
         
@@ -717,6 +732,7 @@
             state.design.photoUrl = getVal('photoUrl');
             state.design.logoUrl = getVal('logoUrl');
             state.design.themeColor = document.getElementById('themeColor').value;
+            state.design.imageSize = document.getElementById('imageSize').value;
         }
 
         function switchTab(tabName) {
@@ -798,6 +814,9 @@
             
             // Resolve Image Radius
             const imgRadius = deg.imageShape === 'circle' ? '50%' : '8px';
+            
+            // Resolve Image Size
+            const imgSize = deg.imageSize + 'px';
 
             // --- ICONS CONFIGURATION (PNGs for Email Compatibility) ---
             const icons = {
@@ -858,7 +877,7 @@
                 <table cellpadding="0" cellspacing="0" border="0" style="font-family: ${fontStack}; font-size: 14px; line-height: 1.4;">
                     <tr>
                         <td style="vertical-align: top; padding-right: 24px;">
-                            ${deg.photoUrl ? `<img src="${deg.photoUrl}" alt="${d.firstName}" style="width: 100px; height: 100px; object-fit: cover; border-radius: ${imgRadius}; display: block;">` : ''}
+                            ${deg.photoUrl ? `<img src="${deg.photoUrl}" alt="${d.firstName}" style="width: ${imgSize}; height: ${imgSize}; object-fit: cover; border-radius: ${imgRadius}; display: block;">` : ''}
                         </td>
                         <td style="vertical-align: top; border-left: 2px solid ${color}; padding-left: 24px;">
                             <div style="font-weight: bold; color: #111827; font-size: 18px; margin-bottom: 2px;">${d.firstName} ${d.lastName}</div>
@@ -882,7 +901,7 @@
                 <table cellpadding="0" cellspacing="0" border="0" style="font-family: ${fontStack}; font-size: 13px;">
                     <tr>
                         <td style="vertical-align: middle; padding-right: 15px;">
-                             ${deg.photoUrl ? `<img src="${deg.photoUrl}" alt="${d.firstName}" style="width: 64px; height: 64px; object-fit: cover; border-radius: ${imgRadius}; display: block;">` : ''}
+                             ${deg.photoUrl ? `<img src="${deg.photoUrl}" alt="${d.firstName}" style="width: ${imgSize}; height: ${imgSize}; object-fit: cover; border-radius: ${imgRadius}; display: block;">` : ''}
                         </td>
                         <td>
                             <div style="font-weight: 800; color: #000; font-size: 15px;">${d.firstName} ${d.lastName}</div>
@@ -904,7 +923,7 @@
                 <table cellpadding="0" cellspacing="0" border="0" width="100%" style="font-family: ${fontStack}; font-size: 14px; text-align: center; max-width: 400px;">
                     <tr>
                         <td align="center" style="padding-bottom: 15px;">
-                             ${deg.photoUrl ? `<img src="${deg.photoUrl}" alt="${d.firstName}" style="width: 80px; height: 80px; object-fit: cover; border-radius: ${imgRadius}; border: 3px solid ${color};">` : ''}
+                             ${deg.photoUrl ? `<img src="${deg.photoUrl}" alt="${d.firstName}" style="width: ${imgSize}; height: ${imgSize}; object-fit: cover; border-radius: ${imgRadius}; border: 3px solid ${color};">` : ''}
                         </td>
                     </tr>
                     <tr>
@@ -966,7 +985,7 @@
                 <table cellpadding="0" cellspacing="0" border="0" style="font-family: ${fontStack}; font-size: 14px; line-height: 1.4; border-collapse: separate; border-spacing: 0;">
                     <tr>
                         <td style="background-color: ${color}; padding: 25px 20px; width: 140px; vertical-align: middle; text-align: center; border-radius: 6px 0 0 6px;">
-                            ${deg.photoUrl ? `<img src="${deg.photoUrl}" style="width: 80px; height: 80px; border-radius: ${imgRadius}; border: 3px solid #ffffff; margin-bottom: 15px; display:inline-block;">` : ''}
+                            ${deg.photoUrl ? `<img src="${deg.photoUrl}" style="width: ${imgSize}; height: ${imgSize}; border-radius: ${imgRadius}; border: 3px solid #ffffff; margin-bottom: 15px; display:inline-block; object-fit: cover;">` : ''}
                              <div style="color: #ffffff; font-weight: bold; font-size: 16px; line-height: 1.2;">${d.firstName}<br>${d.lastName}</div>
                              ${deg.logoUrl ? `<div style="margin-top: 15px; padding-top:15px; border-top: 1px solid rgba(255,255,255,0.2);"><img src="${deg.logoUrl}" style="max-width: 80px; max-height: 30px; filter: brightness(0) invert(1);" alt="Logo" /></div>` : ''}
                         </td>
@@ -990,7 +1009,7 @@
                 <table cellpadding="0" cellspacing="0" border="0" width="100%" style="font-family: ${fontStack}; font-size: 14px; border-top: 3px solid ${color}; padding-top: 20px;">
                     <tr>
                         <td style="padding-right: 25px; vertical-align: top; width: 1px;">
-                             ${deg.photoUrl ? `<img src="${deg.photoUrl}" style="width: 90px; height: 90px; border-radius: ${imgRadius}; object-fit: cover;">` : ''}
+                             ${deg.photoUrl ? `<img src="${deg.photoUrl}" style="width: ${imgSize}; height: ${imgSize}; border-radius: ${imgRadius}; object-fit: cover;">` : ''}
                         </td>
                         <td style="vertical-align: top; padding-right: 25px; border-right: 1px solid #e5e7eb;">
                              <div style="font-weight: 800; color: #111827; font-size: 20px; margin-bottom: 4px;">${d.firstName} ${d.lastName}</div>
