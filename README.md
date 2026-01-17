@@ -1,5 +1,3 @@
-
-
 <p align="center">
     <h1 align="center">📧 Professional Email Signature Generator</h1>
 </p>
@@ -14,7 +12,6 @@
   <a href="https://javedali99.github.io/email-signature-generator/">
     <img src="https://img.shields.io/badge/Version-2.1-blue.svg?style=for-the-badge" alt="Version 2.1">
   </a>
-  
   
   <a href="https://github.com/javedali99/email-signature-generator/blob/main/LICENSE">
     <img src="https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge" alt="License: MIT">
@@ -37,11 +34,21 @@ A modern, interactive web application for creating beautiful, professional email
 ## ✨ Features
 
 ### 🎨 Multiple Templates
-Choose from 4 professionally designed layouts:
+Choose from 14 professionally designed layouts:
 - **Classic**: Traditional horizontal layout with profile photo and accent border
 - **Compact**: Minimalist design perfect for brief, clean signatures
 - **Stacked**: Centered vertical layout with emphasis on visual hierarchy
 - **Banner**: Modern design with a colored footer bar
+- **Sidebar**: Bold left column design for impactful signatures
+- **Wide**: 3-column layout for comprehensive information display
+- **Top Bar**: Sleek design with a colored header accent
+- **Right**: Image positioned on the right side for a unique look
+- **Strip**: Modern accent with a vertical color strip
+- **Underline**: Elegant divider style with clean separation
+- **Elegant**: Sophisticated double border design
+- **Surface**: Polished card-style layout
+- **Block**: Bold colored header design
+- **Split**: 2-column information layout
 
 ### 🔤 Typography Selection
 Customize your signature's typography with 22+ font options across multiple categories:
@@ -76,6 +83,8 @@ Add links to 10 popular platforms:
 - Upload profile photos directly or use image URLs
 - Optional company logo integration
 - Supports Base64 encoded images for email compatibility
+- **Adjustable image size** with an intuitive slider (50px - 200px)
+- Choose between **circle or square** image shapes
 
 ### 📋 One-Click Copy
 Copy your signature to clipboard and paste directly into any email client.
@@ -108,10 +117,12 @@ The application features an intuitive split-screen interface:
 3. **Customize Design**:
    - Go to the "Design" tab
    - Upload or link to your profile photo
+   - Adjust image size using the slider
+   - Choose circle or square image shape
    - Optionally add a company logo
    - Choose your theme/accent color
    - Select your preferred font
-   - Select your preferred template layout
+   - Select your preferred template layout from 14 options
 
 4. **Copy & Use**:
    - Click the "Copy Signature" button
@@ -135,7 +146,7 @@ The application features an intuitive split-screen interface:
 
 #### Apple Mail
 1. Mail → Preferences → Signatures
-2. Click "+" to add new signature
+2. Click " + " to add new signature
 3. Uncheck "Always match my default message font"
 4. Paste your signature
 
@@ -145,9 +156,9 @@ The application features an intuitive split-screen interface:
 Contributions are welcome! Here's how you can help:
 
 1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
+2. Create a feature branch ( `git checkout -b feature/AmazingFeature` )
+3. Commit your changes ( `git commit -m 'Add some AmazingFeature'` )
+4. Push to the branch ( `git push origin feature/AmazingFeature` )
 5. Open a Pull Request
 
 
