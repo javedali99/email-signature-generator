@@ -9,9 +9,6 @@
   </a>
 
   <!--
-  <a href="https://javedali99.github.io/email-signature-generator/">
-    <img src="https://img.shields.io/badge/Version-2.1-blue.svg?style=for-the-badge" alt="Version 2.1">
-  </a>
   
   <a href="https://github.com/javedali99/email-signature-generator/blob/main/LICENSE">
     <img src="https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge" alt="License: MIT">
@@ -92,11 +89,6 @@ Copy your signature to clipboard and paste directly into any email client.
 ### 📧 Email-Compatible
 Uses HTML tables for maximum compatibility across all email clients including Gmail, Outlook, and Apple Mail.
 
-## 📸 Interface
-
-The application features an intuitive split-screen interface:
-- **Left Panel**: Input forms organized in tabs (Details, Social, Design)
-- **Right Panel**: Live preview in a realistic email environment
 
 ## 💻 Usage
 
@@ -129,7 +121,7 @@ The application features an intuitive split-screen interface:
    - Paste into your email client's signature settings
 
 ### Email Client Setup
-
+---
 #### Gmail
 1. Click the gear icon → "See all settings"
 2. Scroll to "Signature" section
