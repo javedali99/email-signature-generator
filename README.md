@@ -56,17 +56,7 @@ Uses HTML tables for maximum compatibility across all email clients including Gm
 The application features an intuitive split-screen interface:
 - **Left Panel**: Input forms organized in tabs (Details, Social, Design)
 - **Right Panel**: Live preview in a realistic email environment with macOS-style window chrome
-
-## 🛠️ Technologies Used
-
-| Technology | Purpose |
-|------------|---------|
-| **HTML5** | Semantic markup structure |
-| **CSS3** | Custom styling with modern animations |
-| **JavaScript (Vanilla)** | Dynamic signature generation and state management |
-| **Tailwind CSS** | Utility-first CSS framework via CDN |
-| **Font Awesome** | Icon library for social media and contact icons |
-| **Google Fonts** | Plus Jakarta Sans font family for clean typography |
+  
 
 ## 💻 Usage
 
@@ -146,29 +136,6 @@ email-signature-generator/
 └── README.md           # Documentation
 ```
 
-## 🎨 Customization
-
-The application stores all configuration in a JavaScript state object:
-
-```javascript
-const state = {
-    template: 'classic',      // Current template: classic, compact, stacked, banner
-    details: {
-        firstName: '', lastName: '', jobTitle: '', department: '',
-        companyName: '', website: '',
-        mobilePhone: '', officePhone: '', email: '', address: ''
-    },
-    social: {
-        linkedin: '', twitter: '', instagram: '', facebook: '',
-        whatsapp: '', youtube: '', tiktok: '', bluesky: '', github: '', scholar: ''
-    },
-    design: {
-        photoUrl: '', logoUrl: '', themeColor: '#2563EB'
-    }
-};
-```
-
-You can modify the templates by editing the `renderSignature()` function in the JavaScript section.
 
 ## 🌐 Browser Compatibility
 
@@ -209,34 +176,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **Javed Ali**
 - GitHub: [@javedali99](https://github.com/javedali99)
 
-## 🙏 Acknowledgments
-
-- Icons provided by [Flaticon](https://www.flaticon.com/)
-- [Font Awesome](https://fontawesome.com/) for additional icons
-- [Tailwind CSS](https://tailwindcss.com/) for the styling framework
-- [Google Fonts](https://fonts.google.com/) for typography
-
-## 📝 Changelog
-
-### v2.0 (Current)
-- **New UI**: Complete redesign with Plus Jakarta Sans font and modern aesthetics
-- **Expanded Social Media**: Added Instagram, Facebook, WhatsApp, YouTube, and TikTok
-- **Enhanced Color Picker**: Quick-select preset colors with live hex display
-- **Improved Templates**: Visual template previews with selection indicators
-- **Better UX**: Segmented tab navigation, toast notifications, macOS-style email preview
-- **Branding**: New "SigGen" branding with signature icon
-
-### v1.3
-- Multiple template options
-- Enhanced UI with tab navigation
-- Improved color picker
-- File upload support for profile photos
-- Better email client compatibility
-
-### v1.0
-- Initial release
-- Basic signature generation
-- Single template
 
 ---
 
