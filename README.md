@@ -1,10 +1,10 @@
 # 📧 Professional Email Signature Generator
 
-![Version](https://img.shields.io/badge/version-2.0-blue)
+![Version](https://img.shields.io/badge/version-2.1-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![HTML](https://img.shields.io/badge/HTML-100%25-orange)
 
-A modern, interactive web application for creating beautiful, professional email signatures with live preview and multiple design templates.
+A modern, interactive web application for creating beautiful, professional email signatures with live preview, multiple design templates, and extensive customization options.
 
 ## 🌐 Live Demo
 
@@ -19,8 +19,16 @@ Choose from 4 professionally designed layouts:
 - **Stacked**: Centered vertical layout with emphasis on visual hierarchy
 - **Banner**: Modern design with a colored footer bar
 
+### 🔤 Typography Selection
+Customize your signature's typography with 22+ font options across multiple categories:
+- **Modern Sans**: Plus Jakarta Sans (default), Inter, Roboto, Open Sans, Lato, Montserrat
+- **Standard Sans**: Arial, Arial Black, Verdana, Tahoma, Trebuchet MS, Impact, Gill Sans, Segoe UI
+- **Serif**: Times New Roman, Georgia, Palatino, Baskerville, Garamond
+- **Monospace**: Courier New, Lucida Console, Monaco, Andale Mono
+- **Cursive/Fantasy**: Brush Script, Comic Sans MS
+
 ### 🎯 Live Preview
-See your signature update in real-time as you type, displayed in a realistic email window simulation.
+See your signature update in real-time as you type, displayed in a realistic email window simulation with macOS-style window chrome.
 
 ### 🌈 Customizable Themes
 - Pick your brand color with an intuitive color picker
@@ -55,8 +63,7 @@ Uses HTML tables for maximum compatibility across all email clients including Gm
 
 The application features an intuitive split-screen interface:
 - **Left Panel**: Input forms organized in tabs (Details, Social, Design)
-- **Right Panel**: Live preview in a realistic email environment with macOS-style window chrome
-  
+- **Right Panel**: Live preview in a realistic email environment
 
 ## 💻 Usage
 
@@ -99,6 +106,7 @@ Or simply drag and drop the `index.html` file into your browser.
    - Upload or link to your profile photo
    - Optionally add a company logo
    - Choose your theme/accent color
+   - Select your preferred font
    - Select your preferred template layout
 
 4. **Copy & Use**:
@@ -123,7 +131,7 @@ Or simply drag and drop the `index.html` file into your browser.
 
 #### Apple Mail
 1. Mail → Preferences → Signatures
-2. Click " + " to add new signature
+2. Click "+" to add new signature
 3. Uncheck "Always match my default message font"
 4. Paste your signature
 
@@ -135,7 +143,6 @@ email-signature-generator/
 ├── LICENSE             # MIT License
 └── README.md           # Documentation
 ```
-
 
 ## 🌐 Browser Compatibility
 
@@ -175,7 +182,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Javed Ali**
 - GitHub: [@javedali99](https://github.com/javedali99)
-
 
 ---
 
