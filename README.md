@@ -2,45 +2,71 @@
 
 A modern, interactive web application for creating beautiful, professional email signatures with live preview and multiple design templates.
 
-![Version](https://img.shields.io/badge/version-1.3-blue)
+![Version](https://img.shields.io/badge/version-2.0-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
+![HTML](https://img.shields.io/badge/HTML-100%25-orange)
+
+## 🌐 Live Demo
+
+**[Try it now → Email Signature Generator](https://javedali99.github.io/email-signature-generator/)**
 
 ## ✨ Features
 
-- **🎨 Multiple Templates**: Choose from 4 professionally designed layouts:
-  - **Classic**: Traditional horizontal layout with profile photo
-  - **Compact**: Minimalist design perfect for brief signatures
-  - **Stacked**: Centered vertical layout with emphasis on visual hierarchy
-  - **Banner**: Modern design with colored bottom bar
+### 🎨 Multiple Templates
+Choose from 4 professionally designed layouts:
+- **Classic**: Traditional horizontal layout with profile photo and accent border
+- **Compact**: Minimalist design perfect for brief, clean signatures
+- **Stacked**: Centered vertical layout with emphasis on visual hierarchy
+- **Banner**: Modern design with a colored footer bar
 
-- **🎯 Live Preview**: See your signature update in real-time as you type
-- **🌈 Customizable Themes**: Pick your brand color with preset options or custom color picker
-- **📱 Social Media Integration**: Add links to LinkedIn, X (Twitter), BlueSky, GitHub, and Google Scholar
-- **🖼️ Image Support**: 
-  - Upload profile photos or use image URLs
-  - Optional company logo integration
-- **📋 One-Click Copy**: Copy your signature to clipboard and paste directly into your email client
-- **📧 Email-Compatible**: Uses HTML tables for maximum compatibility across email clients
-- **🎭 Realistic Preview**: View your signature in a simulated email context
+### 🎯 Live Preview
+See your signature update in real-time as you type, displayed in a realistic email window simulation.
 
-## 🚀 Demo
+### 🌈 Customizable Themes
+- Pick your brand color with an intuitive color picker
+- Quick-select from 5 preset colors (Blue, Emerald, Rose, Violet, Slate)
+- See your hex color value in real-time
 
-Try it live: [Email Signature Generator](https://javedali99.github.io/email-signature-generator/)
+### 📱 Social Media Integration
+Add links to 10 popular platforms:
+- LinkedIn
+- X (Twitter)
+- Instagram
+- Facebook
+- WhatsApp
+- YouTube
+- TikTok
+- BlueSky
+- GitHub
+- Google Scholar
 
-## 📸 Screenshots
+### 🖼️ Image Support
+- Upload profile photos directly or use image URLs
+- Optional company logo integration
+- Supports Base64 encoded images for email compatibility
+
+### 📋 One-Click Copy
+Copy your signature to clipboard and paste directly into any email client.
+
+### 📧 Email-Compatible
+Uses HTML tables for maximum compatibility across all email clients including Gmail, Outlook, and Apple Mail.
+
+## 📸 Interface
 
 The application features an intuitive split-screen interface:
 - **Left Panel**: Input forms organized in tabs (Details, Social, Design)
-- **Right Panel**: Live preview in a realistic email environment
+- **Right Panel**: Live preview in a realistic email environment with macOS-style window chrome
 
 ## 🛠️ Technologies Used
 
-- **HTML5**: Semantic markup structure
-- **CSS3**: Custom styling with modern animations
-- **JavaScript (Vanilla)**: Dynamic signature generation and state management
-- **Tailwind CSS**: Utility-first CSS framework via CDN
-- **Font Awesome**: Icon library for social media and contact icons
-- **Google Fonts**: Inter font family for clean typography
+| Technology | Purpose |
+|------------|---------|
+| **HTML5** | Semantic markup structure |
+| **CSS3** | Custom styling with modern animations |
+| **JavaScript (Vanilla)** | Dynamic signature generation and state management |
+| **Tailwind CSS** | Utility-first CSS framework via CDN |
+| **Font Awesome** | Icon library for social media and contact icons |
+| **Google Fonts** | Plus Jakarta Sans font family for clean typography |
 
 ## 💻 Usage
 
@@ -70,20 +96,23 @@ Or simply drag and drop the `index.html` file into your browser.
 
 1. **Enter Your Details**:
    - Navigate to the "Details" tab
-   - Fill in your personal info, company details, and contact information
+   - Fill in your personal info (name, job title, department)
+   - Add company details and contact information
 
 2. **Add Social Links**:
    - Switch to the "Social" tab
    - Enter your social media profile URLs
+   - Leave fields empty to hide those icons
 
 3. **Customize Design**:
    - Go to the "Design" tab
    - Upload or link to your profile photo
-   - Choose your theme color
+   - Optionally add a company logo
+   - Choose your theme/accent color
    - Select your preferred template layout
 
 4. **Copy & Use**:
-   - Click "Copy Signature" button
+   - Click the "Copy Signature" button
    - Paste into your email client's signature settings
 
 ### Email Client Setup
@@ -93,24 +122,28 @@ Or simply drag and drop the `index.html` file into your browser.
 2. Scroll to "Signature" section
 3. Click "Create new"
 4. Paste your signature (Ctrl+V / Cmd+V)
+5. Click "Save Changes"
 
 #### Outlook
 1. File → Options → Mail → Signatures
 2. Click "New"
-3. Paste your signature in the editor
+3. Name your signature
+4. Paste your signature in the editor
+5. Click "OK"
 
 #### Apple Mail
 1. Mail → Preferences → Signatures
-2. Click "+" to add new signature
-3. Paste your signature
+2. Click " + " to add new signature
+3. Uncheck "Always match my default message font"
+4. Paste your signature
 
 ## 📁 Project Structure
 
 ```
 email-signature-generator/
 ├── index.html          # Main application file (single-page app)
-├── LICENSE            # MIT License
-└── README.md          # Documentation
+├── LICENSE             # MIT License
+└── README.md           # Documentation
 ```
 
 ## 🎨 Customization
@@ -119,10 +152,19 @@ The application stores all configuration in a JavaScript state object:
 
 ```javascript
 const state = {
-    template: 'classic',      // Current template
-    details: { ... },         // Personal & company info
-    social: { ... },          // Social media links
-    design: { ... }           // Theme color, images
+    template: 'classic',      // Current template: classic, compact, stacked, banner
+    details: {
+        firstName: '', lastName: '', jobTitle: '', department: '',
+        companyName: '', website: '',
+        mobilePhone: '', officePhone: '', email: '', address: ''
+    },
+    social: {
+        linkedin: '', twitter: '', instagram: '', facebook: '',
+        whatsapp: '', youtube: '', tiktok: '', bluesky: '', github: '', scholar: ''
+    },
+    design: {
+        photoUrl: '', logoUrl: '', themeColor: '#2563EB'
+    }
 };
 ```
 
@@ -130,11 +172,13 @@ You can modify the templates by editing the `renderSignature()` function in the 
 
 ## 🌐 Browser Compatibility
 
-- ✅ Chrome (recommended)
-- ✅ Firefox
-- ✅ Safari
-- ✅ Edge
-- ✅ Opera
+| Browser | Status |
+|---------|--------|
+| Chrome | ✅ Recommended |
+| Firefox | ✅ Supported |
+| Safari | ✅ Supported |
+| Edge | ✅ Supported |
+| Opera | ✅ Supported |
 
 ## 🤝 Contributing
 
@@ -154,6 +198,7 @@ Contributions are welcome! Here's how you can help:
 - Dark mode support
 - Signature templates library
 - Multi-language support
+- Save/load signature configurations
 
 ## 📄 License
 
@@ -167,18 +212,31 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 🙏 Acknowledgments
 
 - Icons provided by [Flaticon](https://www.flaticon.com/)
-- Font Awesome for additional icons
-- Tailwind CSS for the styling framework
-- Google Fonts for typography
+- [Font Awesome](https://fontawesome.com/) for additional icons
+- [Tailwind CSS](https://tailwindcss.com/) for the styling framework
+- [Google Fonts](https://fonts.google.com/) for typography
 
 ## 📝 Changelog
 
-### v1.3 (Current)
+### v2.0 (Current)
+- **New UI**: Complete redesign with Plus Jakarta Sans font and modern aesthetics
+- **Expanded Social Media**: Added Instagram, Facebook, WhatsApp, YouTube, and TikTok
+- **Enhanced Color Picker**: Quick-select preset colors with live hex display
+- **Improved Templates**: Visual template previews with selection indicators
+- **Better UX**: Segmented tab navigation, toast notifications, macOS-style email preview
+- **Branding**: New "SigGen" branding with signature icon
+
+### v1.3
 - Multiple template options
 - Enhanced UI with tab navigation
 - Improved color picker
 - File upload support for profile photos
 - Better email client compatibility
+
+### v1.0
+- Initial release
+- Basic signature generation
+- Single template
 
 ---
 
