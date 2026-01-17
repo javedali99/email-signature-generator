@@ -1,10 +1,10 @@
 # 📧 Professional Email Signature Generator
 
-A modern, interactive web application for creating beautiful, professional email signatures with live preview and multiple design templates.
-
 ![Version](https://img.shields.io/badge/version-2.0-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![HTML](https://img.shields.io/badge/HTML-100%25-orange)
+
+A modern, interactive web application for creating beautiful, professional email signatures with live preview and multiple design templates.
 
 ## 🌐 Live Demo
 
