@@ -9,39 +9,59 @@
     <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f3f4f6;
+            background-color: #f8fafc;
         }
         
-        /* Custom Scrollbar for the sidebar */
+        /* Custom Scrollbar */
         .custom-scroll::-webkit-scrollbar {
             width: 6px;
         }
         .custom-scroll::-webkit-scrollbar-track {
-            background: #f1f1f1;
+            background: transparent;
         }
         .custom-scroll::-webkit-scrollbar-thumb {
-            background: #d1d5db;
-            border-radius: 4px;
+            background: #cbd5e1;
+            border-radius: 10px;
         }
         .custom-scroll::-webkit-scrollbar-thumb:hover {
-            background: #9ca3af;
+            background: #94a3b8;
         }
 
         /* Tabs Animation */
         .tab-content {
             display: none;
-            animation: fadeIn 0.3s ease-in-out;
+            animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .tab-content.active {
             display: block;
         }
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(5px); }
+            from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
@@ -49,123 +69,149 @@
         input[type="color"] {
             -webkit-appearance: none;
             border: none;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
             padding: 0;
             overflow: hidden;
             cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         input[type="color"]::-webkit-color-swatch-wrapper {
             padding: 0;
         }
         input[type="color"]::-webkit-color-swatch {
             border: none;
-            border-radius: 50%;
-            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            border: 1px solid rgba(0,0,0,0.1);
         }
 
-        /* Preview Area Pattern */
+        /* Preview Pattern */
         .preview-bg {
-            background-color: #ffffff;
-            background-image: radial-gradient(#e5e7eb 1px, transparent 1px);
+            background-color: #f1f5f9;
+            background-image: 
+                linear-gradient(45deg, #e2e8f0 25%, transparent 25%), 
+                linear-gradient(-45deg, #e2e8f0 25%, transparent 25%), 
+                linear-gradient(45deg, transparent 75%, #e2e8f0 75%), 
+                linear-gradient(-45deg, transparent 75%, #e2e8f0 75%);
             background-size: 20px 20px;
+            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
         }
     </style>
 </head>
-<body class="h-screen flex flex-col md:flex-row overflow-hidden text-gray-800">
+<body class="h-screen flex flex-col md:flex-row overflow-hidden text-slate-800 antialiased">
 
     <!-- LEFT SIDEBAR: Controls -->
-    <div class="w-full md:w-[450px] bg-white flex flex-col shadow-xl z-10 border-r border-gray-200 h-full">
+    <div class="w-full md:w-[480px] bg-white flex flex-col shadow-2xl z-20 border-r border-slate-200 h-full relative">
         
         <!-- Header -->
-        <div class="p-5 border-b border-gray-100 flex items-center justify-between bg-white">
-            <div class="flex items-center gap-2">
-                <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white">
-                    <i class="fa-solid fa-pen-nib"></i>
+        <div class="px-6 py-5 border-b border-slate-100 flex items-center justify-between bg-white/80 backdrop-blur-md sticky top-0 z-10">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-blue-500/30">
+                    <i class="fa-solid fa-signature"></i>
                 </div>
-                <h1 class="text-xl font-bold tracking-tight text-gray-900">Email Signature Generator</h1>
+                <div>
+                    <h1 class="text-lg font-bold tracking-tight text-slate-900 leading-tight">SigGen</h1>
+                    <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">Signature Creator</p>
+                </div>
             </div>
-            <span class="text-xs font-medium px-2 py-1 bg-blue-50 text-blue-600 rounded-full">v1.3</span>
+            <a href="#" class="text-xs font-medium px-3 py-1.5 bg-slate-100 text-slate-600 rounded-lg hover:bg-slate-200 transition-colors">
+                <i class="fa-brands fa-github mr-1"></i> v2.0
+            </a>
         </div>
 
-        <!-- Tabs Navigation -->
-        <div class="flex border-b border-gray-200 text-sm font-medium">
-            <button onclick="switchTab('details')" id="tab-btn-details" class="flex-1 py-4 text-blue-600 border-b-2 border-blue-600 hover:bg-gray-50 transition-colors">
-                <i class="fa-regular fa-user mr-2"></i>Details
-            </button>
-            <button onclick="switchTab('social')" id="tab-btn-social" class="flex-1 py-4 text-gray-500 hover:text-gray-700 hover:bg-gray-50 transition-colors border-b-2 border-transparent">
-                <i class="fa-solid fa-share-nodes mr-2"></i>Social
-            </button>
-            <button onclick="switchTab('design')" id="tab-btn-design" class="flex-1 py-4 text-gray-500 hover:text-gray-700 hover:bg-gray-50 transition-colors border-b-2 border-transparent">
-                <i class="fa-solid fa-palette mr-2"></i>Design
-            </button>
+        <!-- Navigation Tabs -->
+        <div class="px-6 pt-4 pb-2 bg-white">
+            <div class="flex p-1 bg-slate-100 rounded-xl">
+                <button onclick="switchTab('details')" id="tab-btn-details" class="flex-1 py-2.5 text-sm font-semibold rounded-lg shadow-sm bg-white text-slate-800 transition-all duration-200 flex items-center justify-center gap-2">
+                    <i class="fa-regular fa-id-card"></i> Details
+                </button>
+                <button onclick="switchTab('social')" id="tab-btn-social" class="flex-1 py-2.5 text-sm font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all duration-200 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-share-nodes"></i> Social
+                </button>
+                <button onclick="switchTab('design')" id="tab-btn-design" class="flex-1 py-2.5 text-sm font-medium rounded-lg text-slate-500 hover:text-slate-700 transition-all duration-200 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-swatchbook"></i> Design
+                </button>
+            </div>
         </div>
 
-        <!-- Scrollable Content Area -->
-        <div class="flex-1 overflow-y-auto custom-scroll p-6 bg-gray-50/50">
+        <!-- Scrollable Content -->
+        <div class="flex-1 overflow-y-auto custom-scroll p-6 space-y-8">
             
             <!-- DETAILS TAB -->
             <div id="tab-details" class="tab-content active space-y-6">
-                <!-- Personal Info Group -->
-                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100">
-                    <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">Personal Info</h3>
+                <!-- Personal Group -->
+                <div class="space-y-4">
+                    <div class="flex items-center gap-2 text-xs font-bold text-slate-400 uppercase tracking-wider">
+                        <i class="fa-regular fa-user"></i> Personal Info
+                    </div>
                     <div class="grid grid-cols-2 gap-4">
-                        <div class="col-span-1">
-                            <label class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
-                            <input type="text" id="firstName" value="Sarah" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-sm" placeholder="e.g. Jane">
+                        <div class="space-y-1.5">
+                            <label class="text-xs font-semibold text-slate-600">First Name</label>
+                            <input type="text" id="firstName" value="Sarah" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all text-sm font-medium placeholder:text-slate-400" placeholder="e.g. Jane">
                         </div>
-                        <div class="col-span-1">
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
-                            <input type="text" id="lastName" value="Connor" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-sm" placeholder="e.g. Doe">
+                        <div class="space-y-1.5">
+                            <label class="text-xs font-semibold text-slate-600">Last Name</label>
+                            <input type="text" id="lastName" value="Connor" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all text-sm font-medium placeholder:text-slate-400" placeholder="e.g. Doe">
                         </div>
-                        <div class="col-span-2">
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Job Title</label>
-                            <input type="text" id="jobTitle" value="Product Design Lead" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-sm" placeholder="e.g. CEO">
+                        <div class="col-span-2 space-y-1.5">
+                            <label class="text-xs font-semibold text-slate-600">Job Title</label>
+                            <input type="text" id="jobTitle" value="Product Design Lead" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all text-sm font-medium placeholder:text-slate-400">
                         </div>
-                        <div class="col-span-2">
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Department</label>
-                            <input type="text" id="department" value="Creative & Marketing" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-sm" placeholder="e.g. Marketing">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Company Info Group -->
-                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100">
-                    <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">Company Info</h3>
-                    <div class="space-y-3">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Company Name</label>
-                            <input type="text" id="companyName" value="Acme Studio Inc." class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-sm">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Website</label>
-                            <input type="text" id="website" value="www.acmestudio.com" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-sm">
+                        <div class="col-span-2 space-y-1.5">
+                            <label class="text-xs font-semibold text-slate-600">Department</label>
+                            <input type="text" id="department" value="Creative & Marketing" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all text-sm font-medium placeholder:text-slate-400">
                         </div>
                     </div>
                 </div>
 
-                <!-- Contact Info Group -->
-                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100">
-                    <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">Contact Details</h3>
-                    <div class="space-y-3">
+                <div class="h-px bg-slate-100"></div>
+
+                <!-- Company Group -->
+                <div class="space-y-4">
+                    <div class="flex items-center gap-2 text-xs font-bold text-slate-400 uppercase tracking-wider">
+                        <i class="fa-regular fa-building"></i> Company Info
+                    </div>
+                    <div class="space-y-4">
+                        <div class="space-y-1.5">
+                            <label class="text-xs font-semibold text-slate-600">Company Name</label>
+                            <input type="text" id="companyName" value="Acme Studio Inc." class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all text-sm font-medium">
+                        </div>
+                        <div class="space-y-1.5">
+                            <label class="text-xs font-semibold text-slate-600">Website URL</label>
+                            <div class="relative">
+                                <i class="fa-solid fa-link absolute left-4 top-3 text-slate-400 text-xs"></i>
+                                <input type="text" id="website" value="www.acmestudio.com" class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all text-sm font-medium">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="h-px bg-slate-100"></div>
+
+                <!-- Contact Group -->
+                <div class="space-y-4">
+                    <div class="flex items-center gap-2 text-xs font-bold text-slate-400 uppercase tracking-wider">
+                        <i class="fa-regular fa-address-book"></i> Contact Details
+                    </div>
+                    <div class="space-y-4">
                         <div class="grid grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Mobile</label>
-                                <input type="text" id="mobilePhone" value="+1 (555) 123-4567" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-sm">
+                            <div class="space-y-1.5">
+                                <label class="text-xs font-semibold text-slate-600">Mobile</label>
+                                <input type="text" id="mobilePhone" value="+1 (555) 123-4567" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all text-sm font-medium">
                             </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Office</label>
-                                <input type="text" id="officePhone" value="+1 (555) 987-6543" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-sm">
+                            <div class="space-y-1.5">
+                                <label class="text-xs font-semibold text-slate-600">Office</label>
+                                <input type="text" id="officePhone" value="+1 (555) 987-6543" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all text-sm font-medium">
                             </div>
                         </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                            <input type="email" id="email" value="sarah.c@acmestudio.com" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-sm">
+                        <div class="space-y-1.5">
+                            <label class="text-xs font-semibold text-slate-600">Email Address</label>
+                            <input type="email" id="email" value="sarah.c@acmestudio.com" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all text-sm font-medium">
                         </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Address</label>
-                            <input type="text" id="address" value="123 Design Avenue, San Francisco, CA" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-sm">
+                        <div class="space-y-1.5">
+                            <label class="text-xs font-semibold text-slate-600">Physical Address</label>
+                            <input type="text" id="address" value="123 Design Avenue, San Francisco, CA" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all text-sm font-medium">
                         </div>
                     </div>
                 </div>
@@ -173,159 +219,283 @@
 
             <!-- SOCIAL TAB -->
             <div id="tab-social" class="tab-content space-y-6">
-                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100">
-                    <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">Social Profiles</h3>
-                    <div class="space-y-4">
-                        <div class="flex items-center gap-3">
-                            <div class="w-8 h-8 rounded bg-blue-700 flex items-center justify-center text-white shrink-0"><i class="fab fa-linkedin-in text-sm"></i></div>
-                            <input type="text" id="linkedin" value="linkedin.com/in/username" placeholder="LinkedIn URL" class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-sm">
+                <div class="bg-blue-50 border border-blue-100 rounded-xl p-4 text-sm text-blue-800 flex items-start gap-3">
+                    <i class="fa-solid fa-circle-info mt-1 text-blue-500"></i>
+                    <p>Enter the full URL for your social profiles. Leave empty to hide the icon.</p>
+                </div>
+
+                <div class="space-y-4">
+                    <!-- LinkedIn -->
+                    <div class="group relative">
+                        <div class="absolute left-4 top-3 w-5 flex justify-center text-slate-400 transition-colors group-focus-within:text-blue-600">
+                            <i class="fab fa-linkedin-in text-lg"></i>
                         </div>
-                        <div class="flex items-center gap-3">
-                            <div class="w-8 h-8 rounded bg-black flex items-center justify-center text-white shrink-0"><i class="fab fa-x-twitter text-sm"></i></div>
-                            <input type="text" id="twitter" value="x.com/username" placeholder="X (Twitter) URL" class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-sm">
+                        <input type="text" id="linkedin" value="linkedin.com/in/username" placeholder="LinkedIn URL" class="w-full pl-12 pr-4 py-3 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all text-sm shadow-sm">
+                    </div>
+
+                    <!-- X / Twitter (Fixed Icon) -->
+                    <div class="group relative">
+                        <div class="absolute left-4 top-3 w-5 flex justify-center text-slate-400 transition-colors group-focus-within:text-black">
+                            <!-- SVG for X to guarantee visibility -->
+                            <svg viewBox="0 0 24 24" aria-hidden="true" class="w-4 h-4 fill-current"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
                         </div>
-                        <div class="flex items-center gap-3">
-                            <div class="w-8 h-8 rounded bg-sky-500 flex items-center justify-center text-white shrink-0"><i class="fa-solid fa-cloud text-xs"></i></div>
-                            <input type="text" id="bluesky" placeholder="BlueSky URL" class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-sm">
+                        <input type="text" id="twitter" value="x.com/username" placeholder="X (Twitter) URL" class="w-full pl-12 pr-4 py-3 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all text-sm shadow-sm">
+                    </div>
+
+                    <!-- Instagram -->
+                    <div class="group relative">
+                        <div class="absolute left-4 top-3 w-5 flex justify-center text-slate-400 transition-colors group-focus-within:text-pink-600">
+                            <i class="fab fa-instagram text-lg"></i>
                         </div>
-                        <div class="flex items-center gap-3">
-                            <div class="w-8 h-8 rounded bg-gray-800 flex items-center justify-center text-white shrink-0"><i class="fab fa-github text-sm"></i></div>
-                            <input type="text" id="github" placeholder="GitHub URL" class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-sm">
+                        <input type="text" id="instagram" placeholder="Instagram URL" class="w-full pl-12 pr-4 py-3 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all text-sm shadow-sm">
+                    </div>
+
+                    <!-- Facebook -->
+                    <div class="group relative">
+                        <div class="absolute left-4 top-3 w-5 flex justify-center text-slate-400 transition-colors group-focus-within:text-blue-700">
+                            <i class="fab fa-facebook-f text-lg"></i>
                         </div>
-                        <div class="flex items-center gap-3">
-                            <div class="w-8 h-8 rounded bg-blue-500 flex items-center justify-center text-white shrink-0"><i class="fa-solid fa-graduation-cap text-xs"></i></div>
-                            <input type="text" id="scholar" placeholder="Google Scholar URL" class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-sm">
+                        <input type="text" id="facebook" placeholder="Facebook URL" class="w-full pl-12 pr-4 py-3 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all text-sm shadow-sm">
+                    </div>
+                    
+                    <!-- WhatsApp -->
+                    <div class="group relative">
+                         <div class="absolute left-4 top-3 w-5 flex justify-center text-slate-400 transition-colors group-focus-within:text-green-500">
+                            <i class="fab fa-whatsapp text-lg"></i>
                         </div>
+                        <input type="text" id="whatsapp" placeholder="WhatsApp Number/Link" class="w-full pl-12 pr-4 py-3 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all text-sm shadow-sm">
+                    </div>
+
+                    <!-- YouTube -->
+                    <div class="group relative">
+                        <div class="absolute left-4 top-3 w-5 flex justify-center text-slate-400 transition-colors group-focus-within:text-red-600">
+                            <i class="fab fa-youtube text-lg"></i>
+                        </div>
+                        <input type="text" id="youtube" placeholder="YouTube URL" class="w-full pl-12 pr-4 py-3 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all text-sm shadow-sm">
+                    </div>
+                    
+                    <!-- TikTok -->
+                    <div class="group relative">
+                        <div class="absolute left-4 top-3 w-5 flex justify-center text-slate-400 transition-colors group-focus-within:text-black">
+                            <i class="fab fa-tiktok text-lg"></i>
+                        </div>
+                        <input type="text" id="tiktok" placeholder="TikTok URL" class="w-full pl-12 pr-4 py-3 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all text-sm shadow-sm">
+                    </div>
+
+                    <!-- BlueSky -->
+                    <div class="group relative">
+                        <div class="absolute left-4 top-3 w-5 flex justify-center text-slate-400 transition-colors group-focus-within:text-sky-500">
+                            <i class="fa-solid fa-cloud text-lg"></i>
+                        </div>
+                        <input type="text" id="bluesky" placeholder="BlueSky URL" class="w-full pl-12 pr-4 py-3 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all text-sm shadow-sm">
+                    </div>
+
+                    <!-- GitHub -->
+                    <div class="group relative">
+                        <div class="absolute left-4 top-3 w-5 flex justify-center text-slate-400 transition-colors group-focus-within:text-slate-800">
+                            <i class="fab fa-github text-lg"></i>
+                        </div>
+                        <input type="text" id="github" placeholder="GitHub URL" class="w-full pl-12 pr-4 py-3 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all text-sm shadow-sm">
+                    </div>
+
+                    <!-- Scholar -->
+                    <div class="group relative">
+                        <div class="absolute left-4 top-3 w-5 flex justify-center text-slate-400 transition-colors group-focus-within:text-blue-500">
+                            <i class="fa-solid fa-graduation-cap text-lg"></i>
+                        </div>
+                        <input type="text" id="scholar" placeholder="Google Scholar URL" class="w-full pl-12 pr-4 py-3 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all text-sm shadow-sm">
                     </div>
                 </div>
             </div>
 
             <!-- DESIGN TAB -->
-            <div id="tab-design" class="tab-content space-y-6">
+            <div id="tab-design" class="tab-content space-y-8">
                 
-                <!-- Images -->
-                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100">
-                    <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">Images</h3>
-                    <div class="space-y-4">
+                <!-- Images Section -->
+                <div class="space-y-4">
+                    <div class="flex items-center gap-2 text-xs font-bold text-slate-400 uppercase tracking-wider">
+                        <i class="fa-regular fa-image"></i> Profile & Logo
+                    </div>
+                    
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-4">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Profile Picture</label>
-                            
-                            <!-- File Upload -->
-                            <div class="flex items-center gap-3 mb-2">
-                                <label class="cursor-pointer bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-bold py-2 px-4 rounded inline-flex items-center transition-colors">
-                                    <i class="fa-solid fa-upload mr-2"></i>
+                            <label class="text-xs font-semibold text-slate-600 block mb-2">Profile Picture</label>
+                            <div class="flex gap-3 items-center">
+                                <label class="cursor-pointer bg-slate-50 hover:bg-slate-100 text-slate-700 text-xs font-bold py-2.5 px-4 rounded-lg inline-flex items-center transition-all border border-slate-200 shadow-sm active:scale-95">
+                                    <i class="fa-solid fa-cloud-arrow-up mr-2 text-blue-500"></i>
                                     <span>Upload Photo</span>
                                     <input type="file" id="photoUpload" class="hidden" accept="image/*" onchange="handleImageUpload(this)">
                                 </label>
-                                <span class="text-xs text-gray-400 italic">or use URL below</span>
+                                <span class="text-[10px] text-slate-400 uppercase font-semibold">OR</span>
+                                <input type="text" id="photoUrl" class="flex-1 px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs outline-none focus:border-blue-500 transition-all placeholder:text-slate-400" placeholder="Paste Image URL..." value="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&w=256&q=80">
                             </div>
-
-                            <input type="text" id="photoUrl" value="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&w=256&q=80" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-sm" placeholder="https://...">
                         </div>
-                         <!-- Logo URL (Optional) -->
-                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Company Logo URL (Optional)</label>
-                            <input type="text" id="logoUrl" placeholder="https://..." class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-sm">
+
+                        <div class="h-px bg-slate-100"></div>
+
+                        <div>
+                            <label class="text-xs font-semibold text-slate-600 block mb-2">Company Logo (Optional)</label>
+                            <input type="text" id="logoUrl" class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-sm outline-none focus:border-blue-500 transition-all" placeholder="https://...">
                         </div>
                     </div>
                 </div>
 
                 <!-- Theme Color -->
-                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100">
-                    <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">Theme Color</h3>
-                    <div class="flex items-center gap-4">
-                        <input type="color" id="themeColor" value="#2563EB">
-                        <span id="colorValue" class="text-sm font-mono text-gray-500">#2563EB</span>
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                         <div class="flex items-center gap-2 text-xs font-bold text-slate-400 uppercase tracking-wider">
+                            <i class="fa-solid fa-droplet"></i> Accent Color
+                        </div>
+                        <span id="colorValue" class="text-xs font-mono bg-slate-100 px-2 py-1 rounded text-slate-500">#2563EB</span>
                     </div>
-                    <div class="flex gap-2 mt-3">
-                        <button class="w-6 h-6 rounded-full bg-blue-600 ring-2 ring-offset-2 ring-transparent hover:ring-blue-600 transition-all" onclick="setThemeColor('#2563EB')"></button>
-                        <button class="w-6 h-6 rounded-full bg-red-600 ring-2 ring-offset-2 ring-transparent hover:ring-red-600 transition-all" onclick="setThemeColor('#DC2626')"></button>
-                        <button class="w-6 h-6 rounded-full bg-green-600 ring-2 ring-offset-2 ring-transparent hover:ring-green-600 transition-all" onclick="setThemeColor('#16A34A')"></button>
-                        <button class="w-6 h-6 rounded-full bg-purple-600 ring-2 ring-offset-2 ring-transparent hover:ring-purple-600 transition-all" onclick="setThemeColor('#9333EA')"></button>
-                        <button class="w-6 h-6 rounded-full bg-gray-900 ring-2 ring-offset-2 ring-transparent hover:ring-gray-900 transition-all" onclick="setThemeColor('#111827')"></button>
+
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center gap-4">
+                        <input type="color" id="themeColor" value="#2563EB" class="shrink-0">
+                        <div class="flex flex-1 justify-between gap-2">
+                            <button class="w-8 h-8 rounded-full bg-blue-600 hover:scale-110 transition-transform shadow-sm" onclick="setThemeColor('#2563EB')"></button>
+                            <button class="w-8 h-8 rounded-full bg-emerald-600 hover:scale-110 transition-transform shadow-sm" onclick="setThemeColor('#059669')"></button>
+                            <button class="w-8 h-8 rounded-full bg-rose-600 hover:scale-110 transition-transform shadow-sm" onclick="setThemeColor('#e11d48')"></button>
+                            <button class="w-8 h-8 rounded-full bg-violet-600 hover:scale-110 transition-transform shadow-sm" onclick="setThemeColor('#7c3aed')"></button>
+                            <button class="w-8 h-8 rounded-full bg-slate-900 hover:scale-110 transition-transform shadow-sm" onclick="setThemeColor('#0f172a')"></button>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Templates Selection -->
-                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100">
-                    <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">Layout Template</h3>
+                <!-- Layout Templates -->
+                <div class="space-y-4">
+                    <div class="flex items-center gap-2 text-xs font-bold text-slate-400 uppercase tracking-wider">
+                        <i class="fa-solid fa-layer-group"></i> Choose Layout
+                    </div>
                     <div class="grid grid-cols-2 gap-3">
-                        <button onclick="setTemplate('classic')" class="p-3 border-2 border-blue-500 rounded-lg bg-blue-50 hover:bg-blue-100 transition-all text-center">
-                            <span class="block text-sm font-bold text-blue-900">Classic</span>
-                            <span class="text-xs text-blue-600">Horizontal</span>
+                        <button onclick="setTemplate('classic')" class="template-btn group relative p-4 border-2 rounded-xl text-left hover:border-blue-500 transition-all bg-white shadow-sm" data-template="classic">
+                            <div class="w-full h-12 bg-slate-50 rounded mb-3 border border-slate-100 overflow-hidden flex items-center p-2 gap-2 opacity-60 group-hover:opacity-100 transition-opacity">
+                                <div class="w-8 h-8 rounded-full bg-slate-300"></div>
+                                <div class="flex-1 space-y-1">
+                                    <div class="h-1.5 w-12 bg-slate-300 rounded"></div>
+                                    <div class="h-1.5 w-8 bg-slate-200 rounded"></div>
+                                </div>
+                            </div>
+                            <span class="block text-sm font-bold text-slate-700 group-hover:text-blue-600">Classic</span>
+                            <span class="text-[10px] text-slate-400">Horizontal with border</span>
+                            <div class="absolute top-3 right-3 opacity-0 group-[.active]:opacity-100 text-blue-600">
+                                <i class="fa-solid fa-circle-check"></i>
+                            </div>
                         </button>
-                        <button onclick="setTemplate('compact')" class="p-3 border-2 border-gray-200 rounded-lg hover:border-blue-300 hover:bg-gray-50 transition-all text-center">
-                            <span class="block text-sm font-bold text-gray-700">Compact</span>
-                            <span class="text-xs text-gray-500">Minimalist</span>
+
+                        <button onclick="setTemplate('compact')" class="template-btn group relative p-4 border-2 rounded-xl text-left hover:border-blue-500 transition-all bg-white shadow-sm" data-template="compact">
+                             <div class="w-full h-12 bg-slate-50 rounded mb-3 border border-slate-100 overflow-hidden flex items-center p-2 gap-2 opacity-60 group-hover:opacity-100 transition-opacity">
+                                <div class="w-6 h-6 rounded bg-slate-300"></div>
+                                <div class="flex-1 space-y-1">
+                                    <div class="h-1.5 w-full bg-slate-300 rounded"></div>
+                                    <div class="h-1.5 w-1/2 bg-slate-200 rounded"></div>
+                                </div>
+                            </div>
+                            <span class="block text-sm font-bold text-slate-700 group-hover:text-blue-600">Compact</span>
+                            <span class="text-[10px] text-slate-400">Minimalist & clean</span>
+                             <div class="absolute top-3 right-3 opacity-0 group-[.active]:opacity-100 text-blue-600">
+                                <i class="fa-solid fa-circle-check"></i>
+                            </div>
                         </button>
-                        <button onclick="setTemplate('stacked')" class="p-3 border-2 border-gray-200 rounded-lg hover:border-blue-300 hover:bg-gray-50 transition-all text-center">
-                            <span class="block text-sm font-bold text-gray-700">Stacked</span>
-                            <span class="text-xs text-gray-500">Centered</span>
+
+                        <button onclick="setTemplate('stacked')" class="template-btn group relative p-4 border-2 rounded-xl text-left hover:border-blue-500 transition-all bg-white shadow-sm" data-template="stacked">
+                            <div class="w-full h-12 bg-slate-50 rounded mb-3 border border-slate-100 overflow-hidden flex flex-col items-center justify-center gap-1 opacity-60 group-hover:opacity-100 transition-opacity">
+                                <div class="w-4 h-4 rounded-full bg-slate-300"></div>
+                                <div class="h-1 w-12 bg-slate-300 rounded"></div>
+                                <div class="h-1 w-8 bg-slate-200 rounded"></div>
+                            </div>
+                            <span class="block text-sm font-bold text-slate-700 group-hover:text-blue-600">Stacked</span>
+                            <span class="text-[10px] text-slate-400">Centered layout</span>
+                             <div class="absolute top-3 right-3 opacity-0 group-[.active]:opacity-100 text-blue-600">
+                                <i class="fa-solid fa-circle-check"></i>
+                            </div>
                         </button>
-                         <button onclick="setTemplate('banner')" class="p-3 border-2 border-gray-200 rounded-lg hover:border-blue-300 hover:bg-gray-50 transition-all text-center">
-                            <span class="block text-sm font-bold text-gray-700">Banner</span>
-                            <span class="text-xs text-gray-500">Bottom Bar</span>
+
+                        <button onclick="setTemplate('banner')" class="template-btn group relative p-4 border-2 rounded-xl text-left hover:border-blue-500 transition-all bg-white shadow-sm" data-template="banner">
+                            <div class="w-full h-12 bg-slate-50 rounded mb-3 border border-slate-100 overflow-hidden flex flex-col justify-between opacity-60 group-hover:opacity-100 transition-opacity">
+                                <div class="p-2 space-y-1">
+                                    <div class="h-1 w-10 bg-slate-300 rounded"></div>
+                                </div>
+                                <div class="h-3 w-full bg-slate-300"></div>
+                            </div>
+                            <span class="block text-sm font-bold text-slate-700 group-hover:text-blue-600">Banner</span>
+                            <span class="text-[10px] text-slate-400">With colored footer</span>
+                             <div class="absolute top-3 right-3 opacity-0 group-[.active]:opacity-100 text-blue-600">
+                                <i class="fa-solid fa-circle-check"></i>
+                            </div>
                         </button>
                     </div>
                 </div>
             </div>
             
-            <div class="h-10"></div> <!-- Spacer -->
+            <div class="h-12"></div>
         </div>
     </div>
 
     <!-- RIGHT SIDE: Preview Area -->
-    <div class="flex-1 flex flex-col h-full bg-gray-100 preview-bg relative overflow-hidden">
+    <div class="flex-1 flex flex-col h-full preview-bg relative overflow-hidden z-0">
         
-        <!-- Header -->
-        <div class="h-16 border-b border-gray-200 bg-white/80 backdrop-blur-sm flex items-center justify-between px-8">
-            <h2 class="font-semibold text-gray-700">Live Preview</h2>
-            <div class="flex gap-3">
-                 <!-- Copy Logic -->
-                <button onclick="copyToClipboard()" id="copyBtn" class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-medium shadow-lg shadow-blue-500/20 transition-all transform active:scale-95">
-                    <i class="fa-regular fa-copy"></i>
-                    <span>Copy Signature</span>
-                </button>
-            </div>
+        <!-- Top Bar -->
+        <div class="h-16 border-b border-slate-200/60 bg-white/50 backdrop-blur-sm flex items-center justify-end px-8 gap-4">
+             <button onclick="copyToClipboard()" id="copyBtn" class="group flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white px-5 py-2.5 rounded-xl font-semibold shadow-lg shadow-slate-900/10 transition-all transform active:scale-95 text-sm">
+                <i class="fa-regular fa-copy group-hover:animate-pulse"></i>
+                <span>Copy Signature</span>
+            </button>
         </div>
 
-        <!-- Preview Canvas -->
-        <div class="flex-1 flex items-center justify-center p-8 overflow-auto">
+        <!-- Canvas -->
+        <div class="flex-1 flex items-center justify-center p-6 md:p-12 overflow-auto">
             
-            <!-- Email Container Look -->
-            <div class="w-full max-w-3xl bg-white rounded-xl shadow-2xl overflow-hidden border border-gray-200">
-                <!-- Fake Email Header -->
-                <div class="bg-gray-50 border-b border-gray-100 p-4 flex flex-col gap-2">
-                    <div class="flex items-center gap-2">
-                        <span class="text-xs font-semibold text-gray-500 w-12 text-right">To:</span>
-                        <div class="h-6 bg-gray-200 rounded w-48 animate-pulse"></div>
+            <!-- Email Window Simulation -->
+            <div class="w-full max-w-4xl bg-white rounded-2xl shadow-2xl border border-slate-200/80 overflow-hidden ring-1 ring-slate-900/5">
+                <!-- Mac-style Window Header -->
+                <div class="bg-slate-50 border-b border-slate-100 px-4 py-3 flex items-center gap-4">
+                    <div class="flex gap-2">
+                        <div class="w-3 h-3 rounded-full bg-rose-400/80"></div>
+                        <div class="w-3 h-3 rounded-full bg-amber-400/80"></div>
+                        <div class="w-3 h-3 rounded-full bg-emerald-400/80"></div>
                     </div>
-                    <div class="flex items-center gap-2">
-                        <span class="text-xs font-semibold text-gray-500 w-12 text-right">Subject:</span>
-                        <span class="text-sm font-medium text-gray-800">Project Update: Q3 Design Review</span>
+                    <div class="flex-1 text-center">
+                        <span class="text-xs font-medium text-slate-400">New Message</span>
+                    </div>
+                    <div class="w-14"></div> <!-- Spacer for center balance -->
+                </div>
+
+                <!-- Email Headers -->
+                <div class="px-6 py-4 border-b border-slate-50 space-y-3">
+                     <div class="flex items-center gap-3">
+                        <span class="text-xs font-semibold text-slate-400 w-12 text-right">To:</span>
+                        <div class="px-2 py-1 bg-blue-50 text-blue-700 text-xs rounded-md font-medium">Design Team</div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="text-xs font-semibold text-slate-400 w-12 text-right">Subject:</span>
+                        <span class="text-sm font-semibold text-slate-700">Re: Design System Update - v2.0 Launch</span>
                     </div>
                 </div>
                 
-                <!-- Email Body & Signature -->
-                <div class="p-8 min-h-[300px] flex flex-col">
-                    <div class="space-y-3 mb-10 text-gray-600 font-light text-sm">
+                <!-- Email Body -->
+                <div class="p-8 min-h-[400px] flex flex-col bg-white">
+                    <div class="space-y-4 mb-12 text-slate-600 text-sm leading-relaxed max-w-2xl font-light">
                         <p>Hi Team,</p>
-                        <p>Here are the updated designs we discussed in yesterday's meeting. Please review and let me know your thoughts by Friday.</p>
+                        <p>Just wanted to share the latest updates for the new design system. We've updated the component library and the documentation is now live.</p>
+                        <p>Let me know if you have any feedback before the weekly sync.</p>
                         <p>Best regards,</p>
                     </div>
 
                     <!-- THE SIGNATURE RENDER TARGET -->
-                    <div id="signature-preview-container" class="mt-auto border-t border-transparent hover:border-gray-100 transition-colors p-2 -ml-2 rounded-lg select-text cursor-text">
+                    <!-- Added outline-none and specific padding to ensure clean copy -->
+                    <div id="signature-preview-container" class="mt-auto border-t border-dashed border-slate-100 pt-6">
                         <!-- Signature injected here via JS -->
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Notification Toast -->
-        <div id="toast" class="absolute bottom-8 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white px-6 py-3 rounded-full shadow-2xl flex items-center gap-3 transition-all duration-300 opacity-0 translate-y-10 pointer-events-none">
-            <i class="fa-solid fa-check-circle text-green-400"></i>
-            <span id="toast-message">Copied to clipboard!</span>
+        <!-- Toast Notification -->
+        <div id="toast" class="absolute bottom-10 left-1/2 transform -translate-x-1/2 bg-slate-800 text-white px-6 py-3.5 rounded-full shadow-2xl flex items-center gap-3 transition-all duration-300 opacity-0 translate-y-10 pointer-events-none z-50">
+            <div class="w-5 h-5 bg-emerald-500 rounded-full flex items-center justify-center">
+                <i class="fa-solid fa-check text-[10px] text-white"></i>
+            </div>
+            <span id="toast-message" class="text-sm font-medium">Copied to clipboard!</span>
         </div>
     </div>
 
@@ -340,7 +510,7 @@
                 mobilePhone: '', officePhone: '', email: '', address: ''
             },
             social: {
-                linkedin: '', twitter: '', bluesky: '', github: '', scholar: ''
+                linkedin: '', twitter: '', instagram: '', facebook: '', whatsapp: '', youtube: '', tiktok: '', bluesky: '', github: '', scholar: ''
             },
             design: {
                 photoUrl: '', logoUrl: '', themeColor: '#2563EB'
@@ -363,6 +533,7 @@
             // Initial render
             updateStateFromDOM();
             renderSignature();
+            updateTemplateUI('classic'); // Set initial UI state
         }
 
         function handleInput(e) {
@@ -407,6 +578,11 @@
 
             state.social.linkedin = getVal('linkedin');
             state.social.twitter = getVal('twitter');
+            state.social.instagram = getVal('instagram');
+            state.social.facebook = getVal('facebook');
+            state.social.whatsapp = getVal('whatsapp');
+            state.social.youtube = getVal('youtube');
+            state.social.tiktok = getVal('tiktok');
             state.social.bluesky = getVal('bluesky');
             state.social.github = getVal('github');
             state.social.scholar = getVal('scholar');
@@ -417,14 +593,14 @@
         }
 
         function switchTab(tabName) {
-            // Update Tab Buttons
+            // Update Tab Buttons (Segmented Control Style)
             document.querySelectorAll('button[id^="tab-btn-"]').forEach(btn => {
                 if(btn.id === `tab-btn-${tabName}`) {
-                    btn.classList.remove('text-gray-500', 'border-transparent');
-                    btn.classList.add('text-blue-600', 'border-blue-600');
+                    btn.classList.remove('text-slate-500', 'bg-transparent');
+                    btn.classList.add('bg-white', 'text-slate-800', 'shadow-sm');
                 } else {
-                    btn.classList.add('text-gray-500', 'border-transparent');
-                    btn.classList.remove('text-blue-600', 'border-blue-600');
+                    btn.classList.add('text-slate-500', 'bg-transparent');
+                    btn.classList.remove('bg-white', 'text-slate-800', 'shadow-sm');
                 }
             });
 
@@ -437,27 +613,27 @@
 
         function setThemeColor(color) {
             themeColorInput.value = color;
-            colorValueLabel.textContent = color;
+            colorValueLabel.textContent = color.toUpperCase();
             // Trigger input event manually to update state
             themeColorInput.dispatchEvent(new Event('input'));
         }
 
         function setTemplate(templateName) {
             state.template = templateName;
-            
-            // Visual feedback on buttons
-            document.querySelectorAll('#tab-design button').forEach(btn => {
-                const btnLabel = btn.querySelector('span.block')?.innerHTML.toLowerCase() || '';
-                if(btnLabel.includes(templateName)) {
-                   btn.classList.add('border-blue-500', 'bg-blue-50');
-                   btn.classList.remove('border-gray-200');
+            updateTemplateUI(templateName);
+            renderSignature();
+        }
+
+        function updateTemplateUI(activeTemplate) {
+            document.querySelectorAll('.template-btn').forEach(btn => {
+                if(btn.dataset.template === activeTemplate) {
+                    btn.classList.add('active', 'border-blue-500', 'bg-blue-50/30', 'ring-1', 'ring-blue-500');
+                    btn.classList.remove('border-slate-200');
                 } else {
-                   btn.classList.remove('border-blue-500', 'bg-blue-50');
-                   btn.classList.add('border-gray-200');
+                    btn.classList.remove('active', 'border-blue-500', 'bg-blue-50/30', 'ring-1', 'ring-blue-500');
+                    btn.classList.add('border-slate-200');
                 }
             });
-
-            renderSignature();
         }
 
         // --- RENDER LOGIC ---
@@ -475,8 +651,12 @@
                 location: 'https://cdn-icons-png.flaticon.com/512/535/535239.png',
                 
                 linkedin: 'https://cdn-icons-png.flaticon.com/512/174/174857.png',
-                // Updated X icon to a square, filled version
-                twitter: 'https://cdn-icons-png.flaticon.com/512/12107/12107562.png', 
+                twitter: 'https://cdn-icons-png.flaticon.com/512/12107/12107562.png', // Square X logo
+                instagram: 'https://cdn-icons-png.flaticon.com/512/174/174855.png',
+                facebook: 'https://cdn-icons-png.flaticon.com/512/733/733547.png',
+                whatsapp: 'https://cdn-icons-png.flaticon.com/512/733/733585.png',
+                youtube: 'https://cdn-icons-png.flaticon.com/512/1384/1384060.png',
+                tiktok: 'https://cdn-icons-png.flaticon.com/512/3046/3046121.png',
                 bluesky: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Bluesky_Logo.svg/100px-Bluesky_Logo.svg.png',
                 github: 'https://cdn-icons-png.flaticon.com/512/25/25231.png',
                 scholar: 'https://cdn-icons-png.flaticon.com/512/2991/2991148.png'
@@ -489,6 +669,11 @@
             
             if (s.linkedin) socialHtml += `<a href="${ensureHttp(s.linkedin)}" style="${socialStyle}"><img src="${icons.linkedin}" width="20" height="20" style="display:block;" alt="LI"/></a>`;
             if (s.twitter) socialHtml += `<a href="${ensureHttp(s.twitter)}" style="${socialStyle}"><img src="${icons.twitter}" width="20" height="20" style="display:block;" alt="X"/></a>`;
+            if (s.instagram) socialHtml += `<a href="${ensureHttp(s.instagram)}" style="${socialStyle}"><img src="${icons.instagram}" width="20" height="20" style="display:block;" alt="IG"/></a>`;
+            if (s.facebook) socialHtml += `<a href="${ensureHttp(s.facebook)}" style="${socialStyle}"><img src="${icons.facebook}" width="20" height="20" style="display:block;" alt="FB"/></a>`;
+            if (s.whatsapp) socialHtml += `<a href="${ensureHttp(s.whatsapp)}" style="${socialStyle}"><img src="${icons.whatsapp}" width="20" height="20" style="display:block;" alt="WA"/></a>`;
+            if (s.youtube) socialHtml += `<a href="${ensureHttp(s.youtube)}" style="${socialStyle}"><img src="${icons.youtube}" width="20" height="20" style="display:block;" alt="YT"/></a>`;
+            if (s.tiktok) socialHtml += `<a href="${ensureHttp(s.tiktok)}" style="${socialStyle}"><img src="${icons.tiktok}" width="20" height="20" style="display:block;" alt="TT"/></a>`;
             if (s.bluesky) socialHtml += `<a href="${ensureHttp(s.bluesky)}" style="${socialStyle}"><img src="${icons.bluesky}" width="20" height="20" style="display:block;" alt="BS"/></a>`;
             if (s.github) socialHtml += `<a href="${ensureHttp(s.github)}" style="${socialStyle}"><img src="${icons.github}" width="20" height="20" style="display:block;" alt="GH"/></a>`;
             if (s.scholar) socialHtml += `<a href="${ensureHttp(s.scholar)}" style="${socialStyle}"><img src="${icons.scholar}" width="20" height="20" style="display:block;" alt="GS"/></a>`;
@@ -499,38 +684,40 @@
             
             let contactHtml = '';
             
-            if (d.mobilePhone) contactHtml += `<div style="margin-bottom: 2px;"><span style="${iconWrapStyle}"><img src="${icons.phone}" width="12" style="display:block" alt="M"></span> <a href="tel:${d.mobilePhone}" style="${contactStyle}">${d.mobilePhone}</a></div>`;
-            if (d.officePhone) contactHtml += `<div style="margin-bottom: 2px;"><span style="${iconWrapStyle}"><img src="${icons.phone}" width="12" style="display:block" alt="O"></span> <a href="tel:${d.officePhone}" style="${contactStyle}">${d.officePhone}</a></div>`;
-            if (d.email) contactHtml += `<div style="margin-bottom: 2px;"><span style="${iconWrapStyle}"><img src="${icons.email}" width="12" style="display:block" alt="E"></span> <a href="mailto:${d.email}" style="${contactStyle}">${d.email}</a></div>`;
-            if (d.website) contactHtml += `<div style="margin-bottom: 2px;"><span style="${iconWrapStyle}"><img src="${icons.web}" width="12" style="display:block" alt="W"></span> <a href="${ensureHttp(d.website)}" style="${contactStyle}">${d.website}</a></div>`;
-            if (d.address) contactHtml += `<div style="margin-top: 4px;"><span style="${iconWrapStyle}"><img src="${icons.location}" width="12" style="display:block" alt="L"></span> <span style="${contactStyle}">${d.address}</span></div>`;
+            if (d.mobilePhone) contactHtml += `<div style="margin-bottom: 3px;"><span style="${iconWrapStyle}"><img src="${icons.phone}" width="12" style="display:block" alt="M"></span> <a href="tel:${d.mobilePhone}" style="${contactStyle}">${d.mobilePhone}</a></div>`;
+            if (d.officePhone) contactHtml += `<div style="margin-bottom: 3px;"><span style="${iconWrapStyle}"><img src="${icons.phone}" width="12" style="display:block" alt="O"></span> <a href="tel:${d.officePhone}" style="${contactStyle}">${d.officePhone}</a></div>`;
+            if (d.email) contactHtml += `<div style="margin-bottom: 3px;"><span style="${iconWrapStyle}"><img src="${icons.email}" width="12" style="display:block" alt="E"></span> <a href="mailto:${d.email}" style="${contactStyle}">${d.email}</a></div>`;
+            if (d.website) contactHtml += `<div style="margin-bottom: 3px;"><span style="${iconWrapStyle}"><img src="${icons.web}" width="12" style="display:block" alt="W"></span> <a href="${ensureHttp(d.website)}" style="${contactStyle}">${d.website}</a></div>`;
+            if (d.address) contactHtml += `<div style="margin-top: 6px;"><span style="${iconWrapStyle}"><img src="${icons.location}" width="12" style="display:block" alt="L"></span> <span style="${contactStyle}">${d.address}</span></div>`;
 
 
             // --- TEMPLATES ---
             let html = '';
+
+            // Note: Job Title color is #4b5563 (dark gray) as requested in v1.3
 
             if (state.template === 'classic') {
                 // CLASSIC
                 html = `
                 <table cellpadding="0" cellspacing="0" border="0" style="font-family: Arial, sans-serif; font-size: 14px; line-height: 1.4;">
                     <tr>
-                        <td style="vertical-align: top; padding-right: 20px;">
+                        <td style="vertical-align: top; padding-right: 24px;">
                             ${deg.photoUrl ? `<img src="${deg.photoUrl}" alt="${d.firstName}" style="width: 100px; height: 100px; object-fit: cover; border-radius: 50%; display: block;">` : ''}
                         </td>
-                        <td style="vertical-align: top; border-left: 2px solid ${color}; padding-left: 20px;">
-                            <div style="font-weight: bold; color: #111827; font-size: 16px;">${d.firstName} ${d.lastName}</div>
+                        <td style="vertical-align: top; border-left: 2px solid ${color}; padding-left: 24px;">
+                            <div style="font-weight: bold; color: #111827; font-size: 18px; margin-bottom: 2px;">${d.firstName} ${d.lastName}</div>
                             <div style="color: #4b5563; font-size: 14px; margin-bottom: 2px;">${d.jobTitle}</div>
                             ${d.department ? `<div style="color: #4b5563; font-size: 14px; margin-bottom: 4px;">${d.department}</div>` : ''}
-                            <div style="color: #6b7280; font-size: 13px; font-weight: bold; margin-bottom: 12px;">${d.companyName}</div>
+                            <div style="color: #6b7280; font-size: 13px; font-weight: bold; margin-bottom: 16px;">${d.companyName}</div>
                             
                             ${contactHtml}
                             
-                            <div style="margin-top: 15px;">
+                            <div style="margin-top: 16px;">
                                 ${socialHtml}
                             </div>
                         </td>
                     </tr>
-                    ${deg.logoUrl ? `<tr><td colspan="2" style="padding-top: 15px;"><img src="${deg.logoUrl}" style="height: 30px; display: block;" alt="Logo" /></td></tr>` : ''}
+                    ${deg.logoUrl ? `<tr><td colspan="2" style="padding-top: 20px;"><img src="${deg.logoUrl}" style="height: 35px; display: block;" alt="Logo" /></td></tr>` : ''}
                 </table>
                 `;
             } else if (state.template === 'compact') {
