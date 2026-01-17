@@ -1,8 +1,32 @@
-# 📧 Professional Email Signature Generator
 
-![Version](https://img.shields.io/badge/version-2.1-blue)
-![License](https://img.shields.io/badge/license-MIT-green)
-![HTML](https://img.shields.io/badge/HTML-100%25-orange)
+
+<p align="center">
+    <h1 align="center">📧 Professional Email Signature Generator</h1>
+</p>
+
+<p align="center">
+
+   <a href="https://javedali99.github.io/email-signature-generator/">
+    <img src="https://img.shields.io/badge/Demo-Live-orange.svg?style=for-the-badge" alt="Live Demo">
+  </a>
+
+  <!--
+  <a href="https://javedali99.github.io/email-signature-generator/">
+    <img src="https://img.shields.io/badge/Version-2.1-blue.svg?style=for-the-badge" alt="Version 2.1">
+  </a>
+  
+  
+  <a href="https://github.com/javedali99/email-signature-generator/blob/main/LICENSE">
+    <img src="https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge" alt="License: MIT">
+  </a>
+  
+  <a href="#">
+    <img src="https://img.shields.io/badge/HTML-100%25-E34F26.svg?style=for-the-badge&logo=html5&logoColor=white" alt="HTML 100%">
+  </a>
+
+-->
+  
+</p>
 
 A modern, interactive web application for creating beautiful, professional email signatures with live preview, multiple design templates, and extensive customization options.
 
@@ -67,29 +91,9 @@ The application features an intuitive split-screen interface:
 
 ## 💻 Usage
 
-### Running Locally
-
-1. Clone the repository:
-```bash
-git clone https://github.com/javedali99/email-signature-generator.git
-cd email-signature-generator
-```
-
-2. Open `index.html` in your browser:
-```bash
-# On macOS
-open index.html
-
-# On Linux
-xdg-open index.html
-
-# On Windows
-start index.html
-```
-
-Or simply drag and drop the `index.html` file into your browser.
-
 ### Creating Your Signature
+
+**[Go to → Email Signature Generator](https://javedali99.github.io/email-signature-generator/)**
 
 1. **Enter Your Details**:
    - Navigate to the "Details" tab
@@ -152,10 +156,6 @@ Contributions are welcome! Here's how you can help:
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 👤 Author
-
-**Javed Ali**
-- GitHub: [@javedali99](https://github.com/javedali99)
 
 ---
 
