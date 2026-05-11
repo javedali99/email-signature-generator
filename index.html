@@ -790,7 +790,7 @@
             { id: 'badge', name: 'Badge', desc: 'Compact badge', icon: 'fa-solid fa-certificate' },
             { id: 'contactCard', name: 'Contact Card', desc: 'Card directory', icon: 'fa-regular fa-address-card' },
             { id: 'angled', name: 'Angled', desc: 'Diagonal accent', icon: 'fa-solid fa-slash' },
-            { id: 'rail', name: 'Rail', desc: 'Side rail', icon: 'fa-solid fa-grip-lines-vertical' },
+            { id: 'spotlight', name: 'Spotlight', desc: 'Photo-forward', icon: 'fa-regular fa-circle-dot' },
             { id: 'letterhead', name: 'Letterhead', desc: 'Formal heading', icon: 'fa-regular fa-file-lines' },
             { id: 'boxed', name: 'Boxed', desc: 'Framed details', icon: 'fa-regular fa-square' },
             { id: 'capsule', name: 'Capsule', desc: 'Rounded module', icon: 'fa-solid fa-capsules' },
@@ -1051,10 +1051,26 @@
             const imgRadius = deg.imageShape === 'circle' ? '50%' : '8px';
             
             // Resolve Image Size
-            const imgSize = deg.imageSize + 'px';
+            const imageSizeValue = Number(deg.imageSize) || 100;
+            const cropX = Number(deg.photoCropX) || 50;
+            const cropY = Number(deg.photoCropY) || 50;
+            const imgSize = imageSizeValue + 'px';
+            const scaledSize = (factor = 1, min = 44, max = 220) => `${Math.round(Math.min(max, Math.max(min, imageSizeValue * factor)))}px`;
 
-            const photoStyle = (size = imgSize, extra = '') => `width: ${size}; height: ${size}; object-fit: cover; object-position: ${deg.photoCropX}% ${deg.photoCropY}%; border-radius: ${imgRadius}; display: block; ${extra}`;
-            const photoImg = (size = imgSize, extra = '', alt = d.firstName) => deg.photoUrl ? `<img src="${deg.photoUrl}" alt="${alt}" style="${photoStyle(size, extra)}">` : '';
+            const photoStyle = (size = imgSize, extra = '') => {
+                const frameSize = Number.parseFloat(size) || imageSizeValue;
+                const cropScale = 1.18;
+                const innerSize = Math.round(frameSize * cropScale);
+                const offsetX = -Math.round((innerSize - frameSize) * cropX / 100);
+                const offsetY = -Math.round((innerSize - frameSize) * cropY / 100);
+                return `width: ${innerSize}px; height: ${innerSize}px; max-width: none; object-fit: cover; object-position: ${deg.photoCropX}% ${deg.photoCropY}%; margin-left: ${offsetX}px; margin-top: ${offsetY}px; display: block; ${extra}`;
+            };
+            const photoImg = (size = imgSize, extra = '', alt = d.firstName) => {
+                if (!deg.photoUrl) return '';
+                const frameSize = Number.parseFloat(size) || imageSizeValue;
+                const frameStyle = `width: ${frameSize}px; height: ${frameSize}px; overflow: hidden; border-radius: ${imgRadius}; display: block; box-sizing: border-box; ${extra}`;
+                return `<span style="${frameStyle}"><img src="${deg.photoUrl}" alt="${alt}" style="${photoStyle(size)}"></span>`;
+            };
 
             const svgIcon = (svg) => `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
 
@@ -1113,7 +1129,7 @@
                 portrait: () => `
                     <table cellpadding="0" cellspacing="0" border="0" style="font-family: ${fontStack}; border-collapse: separate; border-spacing: 0; min-width: 420px;">
                         <tr>
-                            <td style="vertical-align: top; padding-right: 20px;">${profilePhoto('130px')}</td>
+                            <td style="vertical-align: top; padding-right: 20px;">${profilePhoto(scaledSize(1.3))}</td>
                             <td style="vertical-align: top; padding: 12px 0;">
                                 <div style="font-size: 21px; font-weight: 800; color: #111827;">${fullName}</div>
                                 <div style="font-size: 13px; color: ${color}; font-weight: 700; margin: 3px 0 10px;">${d.jobTitle}</div>
@@ -1149,7 +1165,7 @@
                         </tr>
                         <tr>
                             <td style="border: 1px solid #e5e7eb; border-top: 4px solid ${color}; padding: 18px; border-radius: 0 0 8px 8px;">
-                                <table cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 18px;">${profilePhoto('76px')}</td><td>${contactHtml}<div style="margin-top: 12px;">${socialHtml}</div></td></tr></table>
+                                <table cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 18px;">${profilePhoto(scaledSize(0.76))}</td><td>${contactHtml}<div style="margin-top: 12px;">${socialHtml}</div></td></tr></table>
                             </td>
                         </tr>
                     </table>
@@ -1180,7 +1196,7 @@
                 editorial: () => `
                     <table cellpadding="0" cellspacing="0" border="0" style="font-family: ${fontStack}; max-width: 520px;">
                         <tr>
-                            <td style="padding-right: 20px; vertical-align: top;">${profilePhoto('92px')}</td>
+                            <td style="padding-right: 20px; vertical-align: top;">${profilePhoto(scaledSize(0.92))}</td>
                             <td style="vertical-align: top;">
                                 <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: ${color}; font-weight: 800;">${d.department || d.companyName}</div>
                                 <div style="font-size: 24px; line-height: 1.1; font-weight: 800; color: #111827; margin: 4px 0;">${fullName}</div>
@@ -1195,7 +1211,7 @@
                     <table cellpadding="0" cellspacing="0" border="0" style="font-family: ${fontStack}; border-collapse: separate; border-spacing: 0; min-width: 500px;">
                         <tr>
                             <td style="background: ${color}; padding: 20px; color: #ffffff; width: 42%; border-radius: 8px 0 0 8px; vertical-align: top;">
-                                ${profilePhoto('76px', 'border: 2px solid rgba(255,255,255,.75); margin-bottom: 12px;')}
+                                ${profilePhoto(scaledSize(0.76), 'border: 2px solid rgba(255,255,255,.75); margin-bottom: 12px;')}
                                 <div style="font-size: 18px; font-weight: 800;">${fullName}</div>
                                 <div style="font-size: 12px; opacity: .9;">${d.jobTitle}</div>
                             </td>
@@ -1210,7 +1226,7 @@
                 badge: () => `
                     <table cellpadding="0" cellspacing="0" border="0" style="font-family: ${fontStack}; font-size: 14px;">
                         <tr>
-                            <td style="padding-right: 16px; vertical-align: middle;">${profilePhoto('68px', `border: 3px solid ${color};`)}</td>
+                            <td style="padding-right: 16px; vertical-align: middle;">${profilePhoto(scaledSize(0.68), `border: 3px solid ${color};`)}</td>
                             <td style="vertical-align: middle; padding-right: 18px;">
                                 <div style="font-size: 18px; font-weight: 800; color: #111827;">${fullName}</div>
                                 <div style="font-size: 13px; color: #4b5563;">${d.jobTitle}</div>
@@ -1223,7 +1239,7 @@
                 contactCard: () => `
                     <table cellpadding="0" cellspacing="0" border="0" style="font-family: ${fontStack}; width: 520px; border: 1px solid #dbeafe; border-radius: 8px; border-collapse: separate; border-spacing: 0;">
                         <tr>
-                            <td style="padding: 18px; vertical-align: top; width: 1px;">${profilePhoto('84px')}</td>
+                            <td style="padding: 18px; vertical-align: top; width: 1px;">${profilePhoto(scaledSize(0.84))}</td>
                             <td style="padding: 18px 18px 18px 0; vertical-align: top;">
                                 <div style="font-size: 19px; font-weight: 800; color: #111827;">${fullName}</div>
                                 <div style="font-size: 13px; color: ${color}; font-weight: 700; margin-bottom: 10px;">${d.jobTitle}</div>
@@ -1236,7 +1252,7 @@
                 angled: () => `
                     <table cellpadding="0" cellspacing="0" border="0" style="font-family: ${fontStack}; font-size: 14px;">
                         <tr>
-                            <td style="vertical-align: top; padding: 0 22px 0 0;">${profilePhoto('88px')}</td>
+                            <td style="vertical-align: top; padding: 0 22px 0 0;">${profilePhoto(scaledSize(0.88))}</td>
                             <td style="vertical-align: top; border-left: 8px solid ${color}; padding-left: 18px;">
                                 <div style="font-size: 20px; font-weight: 800; color: #111827;">${fullName}</div>
                                 <div style="color: #4b5563; font-size: 13px; margin-bottom: 10px;">${d.jobTitle} · ${d.department}</div>
@@ -1247,12 +1263,11 @@
                         </tr>
                     </table>
                 `,
-                rail: () => `
-                    <table cellpadding="0" cellspacing="0" border="0" style="font-family: ${fontStack}; min-width: 500px;">
+                spotlight: () => `
+                    <table cellpadding="0" cellspacing="0" border="0" style="font-family: ${fontStack}; min-width: 500px; border-collapse: separate; border-spacing: 0;">
                         <tr>
-                            <td style="width: 34px; background: ${color}; border-radius: 999px;"></td>
-                            <td style="padding-left: 18px; vertical-align: top;">${profilePhoto('74px')}</td>
-                            <td style="padding-left: 18px; vertical-align: top;">
+                            <td style="vertical-align: top; padding: 18px; background: #f8fafc; border: 1px solid #e5e7eb; border-right: none; border-radius: 10px 0 0 10px;">${profilePhoto(scaledSize(1.05), `border: 3px solid ${color};`)}</td>
+                            <td style="vertical-align: top; padding: 18px 22px; border: 1px solid #e5e7eb; border-left: 4px solid ${color}; border-radius: 0 10px 10px 0;">
                                 <div style="font-size: 20px; font-weight: 800; color: #111827;">${fullName}</div>
                                 <div style="font-size: 13px; color: #4b5563; margin-bottom: 10px;">${d.jobTitle}, ${d.companyName}</div>
                                 ${contactHtml}<div style="margin-top: 12px;">${socialHtml}</div>
@@ -1271,7 +1286,7 @@
                 boxed: () => `
                     <table cellpadding="0" cellspacing="0" border="0" style="font-family: ${fontStack}; border: 2px solid ${color}; padding: 4px;">
                         <tr>
-                            <td style="padding: 16px; border: 1px solid #e5e7eb; vertical-align: top;">${profilePhoto('82px')}</td>
+                            <td style="padding: 16px; border: 1px solid #e5e7eb; vertical-align: top;">${profilePhoto(scaledSize(0.82))}</td>
                             <td style="padding: 16px; border: 1px solid #e5e7eb; border-left: none; vertical-align: top;">
                                 <div style="font-size: 20px; font-weight: 800; color: #111827;">${fullName}</div>
                                 <div style="font-size: 13px; color: ${color}; font-weight: 700; margin-bottom: 10px;">${d.jobTitle}</div>
@@ -1283,7 +1298,7 @@
                 capsule: () => `
                     <table cellpadding="0" cellspacing="0" border="0" style="font-family: ${fontStack}; background: #f8fafc; border-radius: 999px; border-collapse: separate; border-spacing: 0;">
                         <tr>
-                            <td style="padding: 10px 14px;">${profilePhoto('72px')}</td>
+                            <td style="padding: 10px 14px;">${profilePhoto(scaledSize(0.72))}</td>
                             <td style="padding: 10px 22px 10px 4px; vertical-align: middle;">
                                 <div style="font-size: 18px; font-weight: 800; color: #111827;">${fullName}</div>
                                 <div style="font-size: 13px; color: #4b5563;">${d.jobTitle} · <strong>${d.companyName}</strong></div>
@@ -1296,7 +1311,7 @@
                 executive: () => `
                     <table cellpadding="0" cellspacing="0" border="0" style="font-family: ${fontStack}; font-size: 14px; min-width: 520px;">
                         <tr>
-                            <td style="vertical-align: top; padding-right: 18px;">${profilePhoto('86px')}</td>
+                            <td style="vertical-align: top; padding-right: 18px;">${profilePhoto(scaledSize(0.86))}</td>
                             <td style="vertical-align: top;">
                                 <div style="font-family: Georgia, serif; font-size: 24px; color: #111827;">${fullName}</div>
                                 <div style="height: 2px; width: 90px; background: ${color}; margin: 8px 0;"></div>
@@ -1309,7 +1324,7 @@
                 metro: () => `
                     <table cellpadding="0" cellspacing="0" border="0" style="font-family: ${fontStack}; border-spacing: 4px; border-collapse: separate;">
                         <tr>
-                            <td rowspan="2" style="background: ${color}; padding: 16px; color: #ffffff; vertical-align: top;">${profilePhoto('74px', 'border: 2px solid rgba(255,255,255,.7); margin-bottom: 10px;')}<div style="font-size: 18px; font-weight: 800;">${fullName}</div></td>
+                            <td rowspan="2" style="background: ${color}; padding: 16px; color: #ffffff; vertical-align: top;">${profilePhoto(scaledSize(0.74), 'border: 2px solid rgba(255,255,255,.7); margin-bottom: 10px;')}<div style="font-size: 18px; font-weight: 800;">${fullName}</div></td>
                             <td style="background: #f1f5f9; padding: 14px; vertical-align: top;"><strong style="color: #111827;">${d.jobTitle}</strong><br><span style="color: #64748b;">${d.companyName}</span></td>
                         </tr>
                         <tr>
@@ -1541,7 +1556,7 @@
                         <td style="vertical-align: top; border-left: 6px solid ${color}; padding-left: 20px;">
                             <table cellpadding="0" cellspacing="0" border="0">
                                 <tr>
-                                    ${deg.photoUrl ? `<td style="padding-right: 20px; vertical-align: top;">${photoImg((parseInt(deg.imageSize, 10) * 0.8) + 'px')}</td>` : ''}
+                                    ${deg.photoUrl ? `<td style="padding-right: 20px; vertical-align: top;">${photoImg(scaledSize(0.8))}</td>` : ''}
                                     <td style="vertical-align: top;">
                                         <div style="font-weight: 800; color: #111827; font-size: 20px; text-transform: uppercase; letter-spacing: 0.5px;">${d.firstName} ${d.lastName}</div>
                                         <div style="color: ${color}; font-size: 14px; font-weight: bold; margin-bottom: 2px;">${d.jobTitle}</div>
@@ -1643,7 +1658,7 @@
                                         <div style="color: rgba(255,255,255,0.9); font-size: 14px;">${d.jobTitle} &bull; ${d.companyName}</div>
                                     </td>
                                     <td align="right" style="vertical-align: middle;">
-                                        ${photoImg('60px', 'border: 2px solid rgba(255,255,255,0.5);')}
+                                        ${photoImg(scaledSize(0.6), 'border: 2px solid rgba(255,255,255,0.5);')}
                                     </td>
                                 </tr>
                             </table>

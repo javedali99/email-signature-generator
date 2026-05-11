@@ -36,6 +36,16 @@ runTest('additional layout choices have renderers', () => {
     assert.deepEqual(missingRenderers, []);
 });
 
+runTest('new layouts do not hard-code photo pixel sizes', () => {
+    assert.doesNotMatch(html, /profilePhoto\('\d+px'/);
+    assert.doesNotMatch(html, /photoImg\('\d+px'/);
+});
+
+runTest('rail layout is not offered', () => {
+    assert.doesNotMatch(html, /id:\s*'rail'/);
+    assert.doesNotMatch(html, />Rail</);
+});
+
 runTest('photo crop controls are wired into rendered signature images', () => {
     assert.match(html, /id="photoCropX"/);
     assert.match(html, /id="photoCropY"/);
