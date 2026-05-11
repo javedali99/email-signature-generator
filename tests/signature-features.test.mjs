@@ -55,3 +55,14 @@ runTest('photo crop controls are wired into rendered signature images', () => {
     assert.match(html, /state\.design\.photoCropY\s*=\s*getVal\('photoCropY'\)/);
     assert.match(html, /object-position:\s*\$\{deg\.photoCropX\}%\s+\$\{deg\.photoCropY\}%/);
 });
+
+runTest('photo position controls move the whole profile photo frame', () => {
+    assert.match(html, /id="photoOffsetX"/);
+    assert.match(html, /id="photoOffsetY"/);
+    assert.match(html, /photoOffsetX:\s*0/);
+    assert.match(html, /photoOffsetY:\s*0/);
+    assert.match(html, /state\.design\.photoOffsetX\s*=\s*getVal\('photoOffsetX'\)/);
+    assert.match(html, /state\.design\.photoOffsetY\s*=\s*getVal\('photoOffsetY'\)/);
+    assert.match(html, /left:\s*\$\{photoOffsetX\}px/);
+    assert.match(html, /top:\s*\$\{photoOffsetY\}px/);
+});

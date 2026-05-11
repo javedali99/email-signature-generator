@@ -374,6 +374,33 @@
 
                         <div class="h-px bg-slate-100"></div>
 
+                        <!-- Photo Position Controls -->
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <label class="text-xs font-semibold text-slate-600">Photo Position</label>
+                                <span class="text-[10px] text-slate-400 font-semibold uppercase tracking-wide">Frame</span>
+                            </div>
+                            <div>
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-xs text-slate-500">Left / Right</span>
+                                    <span id="photoOffsetXLabel" class="text-[10px] font-mono text-slate-400">0px</span>
+                                </div>
+                                <input type="range" id="photoOffsetX" min="-40" max="40" value="0" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600">
+                            </div>
+                            <div>
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-xs text-slate-500">Up / Down</span>
+                                    <span id="photoOffsetYLabel" class="text-[10px] font-mono text-slate-400">0px</span>
+                                </div>
+                                <input type="range" id="photoOffsetY" min="-40" max="40" value="0" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600">
+                            </div>
+                            <button onclick="resetPhotoPosition()" class="w-full py-2 border border-slate-200 rounded-lg text-xs font-semibold text-slate-600 hover:bg-slate-50 transition-all">
+                                Reset Position
+                            </button>
+                        </div>
+
+                        <div class="h-px bg-slate-100"></div>
+
                         <!-- Photo Crop Controls -->
                         <div class="space-y-4">
                             <div class="flex items-center justify-between">
@@ -766,7 +793,7 @@
                 linkedin: '', twitter: '', instagram: '', facebook: '', whatsapp: '', youtube: '', tiktok: '', bluesky: '', github: '', scholar: ''
             },
             design: {
-                photoUrl: '', logoUrl: '', themeColor: '#2563EB', font: 'jakarta', imageShape: 'circle', imageSize: 100, photoCropX: 50, photoCropY: 50
+                photoUrl: '', logoUrl: '', themeColor: '#2563EB', font: 'jakarta', imageShape: 'circle', imageSize: 100, photoOffsetX: 0, photoOffsetY: 0, photoCropX: 50, photoCropY: 50
             }
         };
 
@@ -776,6 +803,8 @@
         const themeColorInput = document.getElementById('themeColor');
         const colorValueLabel = document.getElementById('colorValue');
         const imageSizeLabel = document.getElementById('imageSizeLabel');
+        const photoOffsetXLabel = document.getElementById('photoOffsetXLabel');
+        const photoOffsetYLabel = document.getElementById('photoOffsetYLabel');
         const photoCropXLabel = document.getElementById('photoCropXLabel');
         const photoCropYLabel = document.getElementById('photoCropYLabel');
 
@@ -902,6 +931,12 @@
             if (e.target.id === 'imageSize') {
                 imageSizeLabel.textContent = e.target.value + 'px';
             }
+            if (e.target.id === 'photoOffsetX') {
+                photoOffsetXLabel.textContent = e.target.value + 'px';
+            }
+            if (e.target.id === 'photoOffsetY') {
+                photoOffsetYLabel.textContent = e.target.value + 'px';
+            }
             if (e.target.id === 'photoCropX') {
                 photoCropXLabel.textContent = e.target.value + '%';
             }
@@ -957,6 +992,8 @@
             state.design.logoUrl = getVal('logoUrl');
             state.design.themeColor = document.getElementById('themeColor').value;
             state.design.imageSize = document.getElementById('imageSize').value;
+            state.design.photoOffsetX = getVal('photoOffsetX');
+            state.design.photoOffsetY = getVal('photoOffsetY');
             state.design.photoCropX = getVal('photoCropX');
             state.design.photoCropY = getVal('photoCropY');
         }
@@ -1013,6 +1050,15 @@
             renderSignature();
         }
 
+        function resetPhotoPosition() {
+            document.getElementById('photoOffsetX').value = 0;
+            document.getElementById('photoOffsetY').value = 0;
+            photoOffsetXLabel.textContent = '0px';
+            photoOffsetYLabel.textContent = '0px';
+            updateStateFromDOM();
+            renderSignature();
+        }
+
         function updateTemplateUI(activeTemplate) {
             document.querySelectorAll('.template-btn').forEach(btn => {
                 if(btn.dataset.template === activeTemplate) {
@@ -1052,6 +1098,8 @@
             
             // Resolve Image Size
             const imageSizeValue = Number(deg.imageSize) || 100;
+            const photoOffsetX = Number(deg.photoOffsetX) || 0;
+            const photoOffsetY = Number(deg.photoOffsetY) || 0;
             const cropX = Number(deg.photoCropX) || 50;
             const cropY = Number(deg.photoCropY) || 50;
             const imgSize = imageSizeValue + 'px';
@@ -1068,7 +1116,7 @@
             const photoImg = (size = imgSize, extra = '', alt = d.firstName) => {
                 if (!deg.photoUrl) return '';
                 const frameSize = Number.parseFloat(size) || imageSizeValue;
-                const frameStyle = `width: ${frameSize}px; height: ${frameSize}px; overflow: hidden; border-radius: ${imgRadius}; display: block; box-sizing: border-box; ${extra}`;
+                const frameStyle = `width: ${frameSize}px; height: ${frameSize}px; overflow: hidden; border-radius: ${imgRadius}; display: block; box-sizing: border-box; position: relative; left: ${photoOffsetX}px; top: ${photoOffsetY}px; ${extra}`;
                 return `<span style="${frameStyle}"><img src="${deg.photoUrl}" alt="${alt}" style="${photoStyle(size)}"></span>`;
             };
 
